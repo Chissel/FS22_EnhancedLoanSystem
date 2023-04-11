@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<GUIProfiles>
+    <Presets>
+        <Preset name="colorTransparent" value="0 0 0 0"/>
+        <Preset name="colorWhite" value="1 1 1 1"/>
+        <Preset name="colorDisabled" value="0.4 0.4 0.4 1"/>
+        <Preset name="colorGrayHeader" value="0.4 0.4 0.4 1"/>
+        <Preset name="colorListHeaderBackground" value="0 0 0 0.35" />
+    </Presets>
+
+    <!-- Loan InGameMenu -->
+
+    <Profile name="ELS_frame" extends="emptyPanel" with="anchorMiddleCenter">
+        <Value name="size" value="1624px 776px"/>
+        <Value name="debugEnabled" value="false"/>
+    </Profile>
+
+    <Profile name="ELS_headerPanel" extends="emptyPanel" with="anchorTopLeft">
+        <Value name="size" value="1536px 64px"/>
+        <Value name="position" value="44px 64px"/>
+    </Profile>
+
+    <Profile name="ELS_headerText" extends="textDefault" with="anchorMiddleLeft">
+        <Value name="size" value="500px 64px" />
+        <Value name="position" value="0px 0" />
+        <Value name="textSize" value="31px"/>
+        <Value name="textBold" value="false"/>
+        <Value name="textUpperCase" value="true"/>
+        <Value name="textDisabledColor" value="$preset_colorDisabled"/>
+    </Profile>
+
+    <Profile name="ELS_loanInterestText" extends="textDefault" with="anchorMiddleRight">
+        <Value name="size" value="500px 64px" />
+        <Value name="position" value="0px 0" />
+        <Value name="textSize" value="31px"/>
+        <Value name="textBold" value="false"/>
+        <Value name="textUpperCase" value="true"/>
+        <Value name="textDisabledColor" value="$preset_colorDisabled"/>
+    </Profile>
+
+    <Profile name="ELS_headerBox" extends="emptyPanel" with="anchorTopCenter">
+        <Value name="size" value="1300px 50px"/>
+        <Value name="alignmentX" value="left"/>
+        <Value name="alignmentY" value="middle"/>
+        <Value name="imageColor" value="$preset_colorListHeaderBackground"/>
+        <Value name="flowDirection" value="horizontal"/>
+        <Value name="wrapAround" value="true"/>
+        <Value name="lateralFlowSize" value="200px"/>
+        <Value name="fitToElements" value="false"/>
+        <Value name="autoValidateLayout" value="true"/>
+        <Value name="hasFrame" value="false"/>
+    </Profile>
+
+    <Profile name="ELS_headerCell" extends="ingameMenuFrameHeaderText" with="anchorMiddleLeft">
+        <Value name="textSize" value="20px"/>
+        <Value name="textBold" value="false"/>
+        <Value name="textUpperCase" value="false"/>
+        <Value name="textColor" value="$preset_colorGrayHeader"/>
+        <Value name="textAlignment" value="center"/>
+        <Value name="textVerticalAlignment" value="middle"/>
+    </Profile>
+
+    <Profile name="ELS_list" extends="ingameMenuContractsList" with="anchorTopCenter">
+        <Value name="size" value="1300px 693.09px"/>
+        <Value name="position" value="0px -60px"/>
+    </Profile>
+
+    <Profile name="ELS_listItem" extends="ingameMenuContractsListItem" with="anchorBottomLeft">
+        <Value name="size" value="1300px 40.77px"/>
+    </Profile>
+
+    <Profile name="ELS_rowCell" extends="baseReference">
+        <Value name="textSize" value="18px"/>
+        <Value name="textBold" value="false"/>
+        <Value name="textUpperCase" value="false"/>
+        <Value name="textColor" value="$preset_colorWhite"/>
+        <Value name="textAlignment" value="center"/>
+        <Value name="textVerticalAlignment" value="middle"/>
+    </Profile>
+
+    <!-- Take loan dialog -->
+    <Profile name="ELS_takeLoanDialog" extends="dialogBg">
+        <Value name="size" value="750px 350px"/>
+    </Profile>
+
+    <Profile name="ELS_takeLoanText" extends="dialogText" with="anchorTopCenter">
+        <Value name="position" value="0px -20px"/>
+        <Value name="size" value="510px 20px"/>
+        <Value name="textSize" value="20px"/>
+        <Value name="textWrapWidth" value="280px"/>
+    </Profile>
+
+    <Profile name="ELS_takeLoanFlowLayout" extends="baseReference" with="anchorTopCenter">
+        <Value name="alignmentX" value="middle"/>
+        <Value name="alignmentY" value="middle"/>
+        <Value name="size" value="350px 200px"/>
+        <Value name="position" value="0px -80px"/>
+        <Value name="imageColor" value="$preset_colorTransparent"/>
+    </Profile>
+
+    <Profile name="ELS_takeLoanFlowLayoutHorizontal" extends="baseReference" with="anchorBottomCenter">
+        <Value name="alignmentX" value="center"/>
+        <Value name="alignmentY" value="middle"/>
+        <Value name="size" value="600px 40px"/>
+        <Value name="position" value="0px -40px"/>
+        <Value name="imageColor" value="$preset_colorTransparent"/>
+        <Value name="flowDirection" value="horizontal"/>
+    </Profile>
+
+    <Profile name="ELS_takeLoanInfoTextShort" extends="textDefault">
+        <Value name="position" value="0px 0px"/>
+        <Value name="size" value="100px 20px"/>
+        <Value name="textSize" value="16px"/>
+        <Value name="textWrapWidth" value="100px"/>
+    </Profile>
+
+    <Profile name="ELS_takeLoanInfoTextLong" extends="textDefault">
+        <Value name="position" value="0px 0px"/>
+        <Value name="size" value="300px 20px"/>
+        <Value name="textSize" value="16px"/>
+        <Value name="textWrapWidth" value="300px"/>
+    </Profile>
+
+    <Profile name="ELS_takeLoanInputText" extends="textDefault">
+        <Value name="position" value="0px 0px"/>
+        <Value name="size" value="350px 20px"/>
+        <Value name="textSize" value="16px"/>
+        <Value name="textWrapWidth" value="280px"/>
+    </Profile>
+
+    <Profile name="ELS_takeLoanInput" extends="textInput">
+        <Value name="size" value="340px 48px"/>
+        <Value name="position" value="0px 50px"/>
+        <Value name="maxCharacters" value="30"/>
+    </Profile>
+
+    <!-- Take loan dialog -->
+    <Profile name="ELS_specialRedemptionPaymentDialog" extends="dialogBg">
+        <Value name="size" value="750px 200px"/>
+    </Profile>
+
+    <Profile name="ELS_specialRedemptionPaymentFlowLayout" extends="baseReference" with="anchorTopCenter">
+        <Value name="alignmentX" value="middle"/>
+        <Value name="alignmentY" value="middle"/>
+        <Value name="size" value="350px 150px"/>
+        <Value name="position" value="0px -40px"/>
+        <Value name="imageColor" value="$preset_colorTransparent"/>
+    </Profile>
+
+    <Profile name="ELS_specialRedemptionPaymentText" extends="dialogText" with="anchorTopCenter">
+        <Value name="position" value="0px -20px"/>
+        <Value name="size" value="510px 20px"/>
+        <Value name="textSize" value="20px"/>
+        <Value name="textWrapWidth" value="280px"/>
+    </Profile>
+
+    <Profile name="ELS_specialRedemptionPaymentRestAmount" extends="textDefault">
+        <Value name="position" value="0px 0px"/>
+        <Value name="size" value="350px 20px"/>
+        <Value name="textSize" value="16px"/>
+        <Value name="textWrapWidth" value="280px"/>
+        <Value name="textAlignment" value="center"/>
+    </Profile>
+</GUIProfiles>

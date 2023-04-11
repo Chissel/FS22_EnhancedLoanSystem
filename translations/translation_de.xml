@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+    <texts>
+        <!-- Buttons -->
+        <text name="els_ui_takeLoan" text="Kredit abschließen"/>
+        <text name="els_ui_specialRedemptionPayment" text="Sondertilgung"/>
+
+        <text name="els_ui_acceptSpecialRedemptionPayment" text="Sondertilgung durchführen"/>
+
+        <text name="els_ui_inGameMenuTitle" text="Kredit System"/>
+        <text name="els_ui_inGameMenuLoanInterest" text="Aktueller Kreditzins"/>
+        <text name="els_ui_loanAmount" text="Betrag"/>
+
+        <text name="els_ui_header_amount" text="Betrag"/>
+        <text name="els_ui_header_interest" text="Zinsen"/>
+        <text name="els_ui_header_periodRate" text="Monatliche Rückzahlung"/>
+        <text name="els_ui_header_duration" text="Zeitraum (Monate)"/>
+        <text name="els_ui_header_restDuration" text="Restlaufzeit (Monate)"/>
+        <text name="els_ui_header_restAmount" text="Restbetrag"/>
+
+        <text name="els_ui_currentLoanSectionHeader" text="Laufende Kredite"/>
+        <text name="els_ui_paidOffLoanSectionHeader" text="Abbezahlte Kredite"/>
+
+        <text name="els_ui_takeLoanText" text="Bitte gib den Betrag und die Laufzeit deines Kredites an."/>
+        <text name="els_ui_takeLoanAmountInputText" text="Betrag:"/>
+        <text name="els_ui_takeLoanDurationInputText" text="Zeitraum (Jahre):"/>
+        <text name="els_ui_takeLoanInterest" text="Zinsen"/>
+        <text name="els_ui_takeLoanPeriodRate" text="Monatliche Rückzahlung"/>
+        <text name="els_ui_takeLoanTotalAmount" text="Rückzahlungsbetrag"/>
+
+        <text name="els_ui_specialRedemptionPaymentText" text="Bitte gib den Betrag ein, den du zurückzahlen willst."/>
+        <text name="els_ui_specialRedemptionPaymentRestAmount" text="Noch zu zahlender Betrag"/>
+    </texts>
+</l10n>

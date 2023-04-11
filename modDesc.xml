@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<modDesc descVersion="73">
+    <author>Chissel</author>
+    <version>1.0.0.0</version>
+    <title>
+        <en>Enhanced Loan System</en>
+        <de>Erweitertes Kredit System</de>
+    </title>
+    <description>
+<en>
+<![CDATA[
+]]>
+</en>
+<de>
+<![CDATA[
+]]>
+</de>
+</description>
+    <iconFilename>icon_enhancedLoanSystem.dds</iconFilename>
+    <multiplayer supported="true"/>
+    <l10n filenamePrefix="translations/translation"/>
+
+    <extraSourceFiles>
+        <sourceFile filename="src/ELS_main.lua"/>
+    </extraSourceFiles>
+</modDesc>
+

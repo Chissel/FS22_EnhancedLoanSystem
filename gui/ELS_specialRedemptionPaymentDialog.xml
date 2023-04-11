@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<GUI onOpen="onOpen" onClose="onClose" onCreate="onCreate">
+    <GuiElement type="empty" profile="newLayer" />
+    <GuiElement type="bitmap" profile="dialogFullscreenBg" />
+    <GuiElement type="bitmap" profile="bgVignette"/>
+    <GuiElement type="bitmap" profile="bgGlowDialog" />
+
+    <GuiElement type="bitmap" profile="ELS_specialRedemptionPaymentDialog" id="dialogElement">
+        <GuiElement type="text" profile="ELS_specialRedemptionPaymentText" text="$l10n_els_ui_specialRedemptionPaymentText" id="dialogTextElement" />
+
+        <GuiElement type="flowLayout" profile="ELS_specialRedemptionPaymentFlowLayout">
+            <GuiElement type="textInput" profile="ELS_takeLoanInput" id="amountInput" onEnterPressed="onEnterPressed" onTextChanged="onTextChanged" enterWhenClickOutside="false"/>
+            <GuiElement type="text" profile="ELS_specialRedemptionPaymentRestAmount" text="$l10n_els_ui_specialRedemptionPaymentRestAmount" id="restAmountField" />
+        </GuiElement>
+
+        <GuiElement type="flowLayout" profile="buttonBoxDialog" id="buttonsPC" >
+            <GuiElement type="button" profile="buttonOK" text="$l10n_els_ui_acceptSpecialRedemptionPayment" onClick="onClickOk" id="yesButton" />
+            <GuiElement type="button" profile="buttonCancel" text="$l10n_button_cancel" onClick="onClickCancel" id="cancelButton" />
+        </GuiElement>
+    </GuiElement>
+</GUI>
