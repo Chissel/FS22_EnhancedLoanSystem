@@ -1,15 +1,18 @@
 -- Name: ELS_main
 -- Author: Chissel
 
-local modName = g_currentModName
 local modDirectory = g_currentModDirectory
 
 source(g_currentModDirectory .. "src/ELS_loanManager.lua")
 source(g_currentModDirectory .. "src/ELS_loan.lua")
+source(g_currentModDirectory .. "src/ELS_loanManagerProperties.lua")
 source(g_currentModDirectory .. "src/gui/ELS_inGameMenuLoanSystem.lua")
 source(g_currentModDirectory .. "src/gui/ELS_takeLoanDialog.lua")
 source(g_currentModDirectory .. "src/gui/ELS_specialRedemptionPaymentDialog.lua")
+source(g_currentModDirectory .. "src/gui/ELS_settingsMenuExtension.lua")
 source(g_currentModDirectory .. "src/events/ELS_addRemoveMoneyEvent.lua")
+source(g_currentModDirectory .. "src/events/ELS_addLoanEvent.lua")
+source(g_currentModDirectory .. "src/events/ELS_specialRedemptionPaymentEvent.lua")
 
 addModEventListener(ELS_loanManager)
 
@@ -81,10 +84,12 @@ end
 
 function init()
     Mission00.loadMission00Finished = Utils.appendedFunction(Mission00.loadMission00Finished, loadedMission)
-    Mission00.load = Utils.appendedFunction(Mission00.load, ELS_loanManager.loadFromXMLFile)
+    Mission00.loadItemsFinished = Utils.appendedFunction(Mission00.loadItemsFinished, ELS_loanManager.loadFromXMLFile)
     FSCareerMissionInfo.saveToXMLFile = Utils.appendedFunction(FSCareerMissionInfo.saveToXMLFile, ELS_loanManager.saveToXMLFile)
-    TreePlantManager.readFromServerStream = Utils.appendedFunction(TreePlantManager.readFromServerStream, ELS_loanManager.readFromServerStream)
-    TreePlantManager.writeToClientStream = Utils.appendedFunction(TreePlantManager.writeToClientStream, ELS_loanManager.writeToClientStream)
+    Mission00.loadAdditionalFilesFinished = Utils.appendedFunction(Mission00.loadAdditionalFilesFinished, ELS_loanManager.loadMapData)
+    --SavegameSettingsEvent.readStream = Utils.appendedFunction(SavegameSettingsEvent.readStream, ELS_loanManager.onReadStream)
+    --SavegameSettingsEvent.writeStream = Utils.appendedFunction(SavegameSettingsEvent.writeStream, ELS_loanManager.onWriteStream)
+    g_els_settingsMenuExtension:init()
 end
 
 init()

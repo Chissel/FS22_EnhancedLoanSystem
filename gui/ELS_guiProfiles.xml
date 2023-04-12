@@ -131,7 +131,13 @@
     <Profile name="ELS_takeLoanInput" extends="textInput">
         <Value name="size" value="340px 48px"/>
         <Value name="position" value="0px 50px"/>
-        <Value name="maxCharacters" value="30"/>
+        <Value name="maxCharacters" value="9"/>
+    </Profile>
+
+    <Profile name="ELS_takeLoanInputYear" extends="textInput">
+        <Value name="size" value="340px 48px"/>
+        <Value name="position" value="0px 50px"/>
+        <Value name="maxCharacters" value="2"/>
     </Profile>
 
     <!-- Take loan dialog -->

@@ -4,23 +4,35 @@
 ELS_loanManager = {}
 ELS_loanManager.loans = {}
 
-ELS_loanManager.minLoanInterest = 1.0
-ELS_loanManager.maxLoanInterest = 10.0
-ELS_loanManager.loanInterestSteps = 0.1
-
 local ELS_loanManager_mt = Class(ELS_loanManager, AbstractManager)
 
 function ELS_loanManager.new(customMt)
 	local self = ELS_loanManager:superClass().new(customMt or ELS_loanManager_mt)
 
     self.loans = {}
-    self.loanInterest = 3.5
 
 	return self
 end
 
 function ELS_loanManager:loadMap()
     g_messageCenter:subscribe(MessageType.PERIOD_CHANGED, self.onPeriodChanged, self)
+end
+
+function ELS_loanManager:loadMapData(xmlFile)
+    if g_currentMission:getIsServer() then
+        g_els_loanManager.loanManagerProperties = ELS_loanManagerProperties.new(true, g_currentMission:getIsClient())
+        g_els_loanManager.loanManagerProperties:register()
+    end
+end
+
+function ELS_loanManager:setLoanInterestValue(value)
+    self.loanManagerProperties.loanInterest = value
+    self.loanManagerProperties:raiseDirtyFlags(self.loanManagerProperties.propertiesDirtyFlag)
+end
+
+function ELS_loanManager:toggleDynamicLoanInterest()
+    self.loanManagerProperties.dynamicLoanInterest = not self.loanManagerProperties.dynamicLoanInterest
+    self.loanManagerProperties:raiseDirtyFlags(self.loanManagerProperties.propertiesDirtyFlag)
 end
 
 function ELS_loanManager:paidOffLoans(farmId)
@@ -61,28 +73,34 @@ function ELS_loanManager:currentLoans(farmId)
     return currentLoans
 end
 
+function ELS_loanManager:sendOrDoAddLoan(loan)
+    if g_currentMission:getIsServer() then
+        self:addLoan(loan)
+    else
+        g_client:getServerConnection():sendEvent(ELS_addLoanEvent.new(loan.farmId, loan.amount, loan.interest, loan.duration, loan.restDuration, loan.paidOff, loan.restAmount))
+    end
+end
+
 function ELS_loanManager:addLoan(loan)
+    loan:register()
     local farmLoans = self.loans[loan.farmId] or {}
     table.insert(farmLoans, loan)
     self.loans[loan.farmId] = farmLoans
+
     self:addRemoveMoney(loan.amount, loan.farmId)
 end
 
 function ELS_loanManager:addRemoveMoney(amount, farmId)
-    if g_currentMission:getIsServer() then
-        local moneyType = MoneyType.LOAN
+    local moneyType = MoneyType.LOAN
 
-        if amount < 0 then
-            moneyType = MoneyType.LOAN_INTEREST
-        end
+    if amount < 0 then
+        moneyType = MoneyType.LOAN_INTEREST
+    end
 
-        g_currentMission:addMoneyChange(amount, farmId, moneyType, true)
-        local farm = g_farmManager:getFarmById(farmId)
-        if farm ~= nil then
-            farm:changeBalance(amount, moneyType)
-        end
-    else
-        g_client:getServerConnection():sendEvent(ELS_addRemoveMoneyEvent.new(amount, farmId))
+    g_currentMission:addMoneyChange(amount, farmId, moneyType, true)
+    local farm = g_farmManager:getFarmById(farmId)
+    if farm ~= nil then
+        farm:changeBalance(amount, moneyType)
     end
 end
 
@@ -92,6 +110,29 @@ function ELS_loanManager:specialRedemptionPayment(loan, amount)
         loan.paidOff = true
     else
         loan.restAmount = loan.restAmount - amount
+    end
+
+    self:addRemoveMoney(-amount, loan.farmId)
+
+    loan:raiseDirtyFlags(loan.loanDirtyFlag)
+end
+
+function ELS_loanManager:sendOrDoSpecialRedemptionPayment(loan, amount)
+    if g_currentMission:getIsServer() then
+        self:specialRedemptionPayment(loan, amount)
+    else
+        g_client:getServerConnection():sendEvent(ELS_specialRedemptionPaymentEvent.new(loan.farmId, loan.id, amount))
+    end
+end
+
+function ELS_loanManager:excecuteSpecialRedemptionPayment(farmId, loanId, amount)
+    local farmLoans = self.loans[farmId]
+
+    for _, loan in pairs(farmLoans) do
+        if loan.id == loanId then
+            self:specialRedemptionPayment(loan, amount)
+            return
+        end
     end
 end
 
@@ -108,24 +149,32 @@ function ELS_loanManager:onPeriodChanged()
     end
 
     g_els_loanManager:collectLoanRate()
-    g_els_loanManager:updateLoanInterest()
+    g_els_loanManager:updateLoanInterestIfNeeded()
 end
 
-function ELS_loanManager:updateLoanInterest()
-    local downUp = math.random(1,2)
+function ELS_loanManager:updateLoanInterestIfNeeded()
+    if not self.loanManagerProperties.dynamicLoanInterest then
+        return
+    end
+
+    local downUp = math.random(1,3)
 
     if downUp == 1 then
-        self.loanInterest = self.loanInterest + ELS_loanManager.loanInterestSteps
+        self.loanManagerProperties.loanInterest = self.loanManagerProperties.loanInterest + ELS_loanManagerProperties.loanInterestSteps
 
-        if self.loanInterest > ELS_loanManager.maxLoanInterest then
-            self.loanInterest = ELS_loanManager.maxLoanInterest
+        if self.loanManagerProperties.loanInterest > ELS_loanManagerProperties.maxLoanInterest then
+            self.loanManagerProperties.loanInterest = ELS_loanManagerProperties.maxLoanInterest
         end
-    else
-        self.loanInterest = self.loanInterest - ELS_loanManager.loanInterestSteps
 
-        if self.loanInterest < ELS_loanManager.minLoanInterest then
-            self.loanInterest = ELS_loanManager.minLoanInterest
+        self.loanManagerProperties:raiseDirtyFlags(self.loanManagerProperties.propertiesDirtyFlag)
+    elseif downUp == 2 then
+        self.loanManagerProperties.loanInterest = self.loanManagerProperties.loanInterest - ELS_loanManagerProperties.loanInterestSteps
+
+        if self.loanManagerProperties.loanInterest < ELS_loanManagerProperties.minLoanInterest then
+            self.loanManagerProperties.loanInterest = ELS_loanManagerProperties.minLoanInterest
         end
+
+        self.loanManagerProperties:raiseDirtyFlags(self.loanManagerProperties.propertiesDirtyFlag)
     end
 end
 
@@ -153,6 +202,8 @@ function ELS_loanManager:collectLoanRateForFarm(farmId, loans)
                 loan.restAmount = loan.restAmount - repaymentPortion
             end
 
+            loan:raiseDirtyFlags(loan.loanDirtyFlag)
+
             self:addRemoveMoney(-annuity, farmId)
         end
     end
@@ -167,25 +218,22 @@ function ELS_loanManager:saveToXMLFile(missionInfo)
         local xmlFile = XMLFile.create("els_loans", saveGamePath, key)
 
         if xmlFile ~= nil then
-            xmlFile:setFloat(key.."#loanInterest", g_els_loanManager.loanInterest)
+            g_els_loanManager.loanManagerProperties:saveToXMLFile(xmlFile, key)
 
             local farmIndex = 0
             for farmId, farmLoans in pairs(g_els_loanManager.loans) do
                 local farmKey = string.format(key..".farmId(%d)", farmIndex)
                 xmlFile:setInt(farmKey.."#farmId", farmId)
+
+
                 local loanIndex = 0
                 for _, loan in pairs(farmLoans) do
                     local loanKey = string.format(farmKey..".loan(%d)", loanIndex)
-                    xmlFile:setInt(loanKey.."#farmId", loan.farmId)
-                    xmlFile:setInt(loanKey.."#amount", loan.amount)
-                    xmlFile:setFloat(loanKey.."#interest", loan.interest)
-                    xmlFile:setInt(loanKey.."#duration", loan.duration)
-                    xmlFile:setInt(loanKey.."#restDuration", loan.restDuration)
-                    xmlFile:setBool(loanKey.."#paidOff", loan.paidOff)
-                    xmlFile:setInt(loanKey.."#restAmount", loan.restAmount)
-
+                    loan:saveToXMLFile(xmlFile, loanKey)
                     loanIndex = loanIndex + 1
                 end
+
+                farmIndex = farmIndex + 1
             end
 
             xmlFile:save()
@@ -194,7 +242,7 @@ function ELS_loanManager:saveToXMLFile(missionInfo)
     end
 end
 
-function ELS_loanManager:loadFromXMLFile(mission)
+function ELS_loanManager:loadFromXMLFile()
     local savegameDirectory = g_currentMission.missionInfo.savegameDirectory
 
     if savegameDirectory ~= nil then
@@ -203,8 +251,7 @@ function ELS_loanManager:loadFromXMLFile(mission)
         local xmlFile = XMLFile.loadIfExists("els_loans", filename, key)
 
         if xmlFile ~= nil then
-            local loanInterest = xmlFile:getFloat(key.."#loanInterest")
-            g_els_loanManager.loanInterest = tonumber(string.format("%.2f", loanInterest))
+            g_els_loanManager.loanManagerProperties:loadFromXMLFile(xmlFile, key)
 
             local farmIndex = 0
             while true do
@@ -218,6 +265,7 @@ function ELS_loanManager:loadFromXMLFile(mission)
 
                 local currentFarmLoans = {}
                 local loanIndex = 0
+
                 while true do
                     local loanKey = string.format(farmKey..".loan(%d)", loanIndex)
 
@@ -225,15 +273,14 @@ function ELS_loanManager:loadFromXMLFile(mission)
                         break
                     end
 
-                    local currentFarmId = xmlFile:getInt(loanKey.."#farmId")
-                    local amount = xmlFile:getInt(loanKey.."#amount")
-                    local interest = xmlFile:getFloat(loanKey.."#interest")
-                    local duration = xmlFile:getInt(loanKey.."#duration")
-                    local restDuration = xmlFile:getInt(loanKey.."#restDuration")
-                    local paidOff = xmlFile:getBool(loanKey.."#paidOff")
-                    local restAmount = xmlFile:getInt(loanKey.."#restAmount")
+                    local loan = ELS_loan.new(true, g_client ~= nil)
+                    if not loan:loadFromXMLFile(xmlFile, loanKey) then
+                        loan:delete()
+                    else
+                        loan:register()
+                        table.insert(currentFarmLoans, loan)
+                    end
 
-                    table.insert(currentFarmLoans, ELS_loan.recovery(currentFarmId, amount, interest, duration, restDuration, paidOff, restAmount))
                     loanIndex = loanIndex + 1
                 end
 
@@ -246,55 +293,60 @@ function ELS_loanManager:loadFromXMLFile(mission)
     end
 end
 
-function ELS_loanManager:readFromServerStream(streamId)
-    print("This is readFromServerStream")
-	local loanInterest = streamReadFloat32(streamId)
-    g_els_loanManager.loanInterest = loanInterest
+--[[
+function ELS_loanManager:onReadStream(streamId, connection)
+    if connection:getIsServer() then
+        local loanInterest = streamReadFloat32(streamId)
+        g_els_loanManager.loanInterest = loanInterest
 
-    local numFarms = streamReadInt32(streamId)
+        local numFarms = streamReadInt32(streamId)
 
-	for i = 1, numFarms do
-        local farmId = streamReadInt32(streamId)
+        for i = 1, numFarms do
+            local farmId = streamReadInt32(streamId)
 
-        local numLoans = streamReadInt32(streamId)
+            local numLoans = streamReadInt32(streamId)
 
-        local farmLoans = {}
-        for i = 1, numLoans do
-            local currentFarmId = streamReadInt32(streamId)
-            local amount = streamReadInt32(streamId)
-            local interest = streamReadFloat32(streamId)
-            local duration = streamReadInt32(streamId)
-            local restDuration = streamReadInt32(streamId)
-            local paidOff = streamReadBool(streamId)
-            local restAmount = streamReadInt32(streamId)
+            local farmLoans = {}
+            for i = 1, numLoans do
+                local currentFarmId = streamReadInt32(streamId)
+                local amount = streamReadInt32(streamId)
+                local interest = streamReadFloat32(streamId)
+                local duration = streamReadInt32(streamId)
+                local restDuration = streamReadInt32(streamId)
+                local paidOff = streamReadBool(streamId)
+                local restAmount = streamReadInt32(streamId)
 
-            table.insert(farmLoans, ELS_loan.recovery(currentFarmId, amount, interest, duration, restDuration, paidOff, restAmount))
-        end
+                local loan = ELS_loan.recovery(currentFarmId, amount, interest, duration, restDuration, paidOff, restAmount)
+                table.insert(farmLoans, loan)
+            end
 
-        g_els_loanManager.loans[farmId] = farmLoans
-	end
-end
-
-function ELS_loanManager:writeToClientStream(streamId)
-    print("This is writeToClientStream")
-    streamWriteFloat32(streamId, g_els_loanManager.loanInterest)
-
-    streamWriteInt32(streamId, #g_els_loanManager.loans)
-
-	for farmId, farmLoans in pairs(g_els_loanManager.loans) do
-        streamWriteInt32(streamId, farmId)
-
-        streamWriteInt32(streamId, #farmLoans)
-        for _, loan in pairs(farmLoans) do
-            streamWriteInt32(streamId, loan.farmId)
-            streamWriteInt32(streamId, loan.amount)
-            streamWriteFloat32(streamId, loan.interest)
-            streamWriteInt32(streamId, loan.duration)
-            streamWriteInt32(streamId, loan.restDuration)
-            streamWriteBool(streamId, loan.paidOff)
-            streamWriteInt32(streamId, loan.restAmount)
+            g_els_loanManager.loans[farmId] = farmLoans
         end
     end
 end
+
+function ELS_loanManager:onWriteStream(streamId, connection)
+    if not connection:getIsServer() then
+        streamWriteFloat32(streamId, g_els_loanManager.loanInterest)
+
+        streamWriteInt32(streamId, #g_els_loanManager.loans)
+
+        for farmId, farmLoans in pairs(g_els_loanManager.loans) do
+            streamWriteInt32(streamId, farmId)
+
+            streamWriteInt32(streamId, #farmLoans)
+            for _, loan in pairs(farmLoans) do
+                streamWriteInt32(streamId, loan.farmId)
+                streamWriteInt32(streamId, loan.amount)
+                streamWriteFloat32(streamId, loan.interest)
+                streamWriteInt32(streamId, loan.duration)
+                streamWriteInt32(streamId, loan.restDuration)
+                streamWriteBool(streamId, loan.paidOff)
+                streamWriteInt32(streamId, loan.restAmount)
+            end
+        end
+    end
+end
+]]--
 
 g_els_loanManager = ELS_loanManager.new()

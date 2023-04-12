@@ -30,5 +30,11 @@
 
         <text name="els_ui_specialRedemptionPaymentText" text="Bitte gib den Betrag ein, den du zurückzahlen willst."/>
         <text name="els_ui_specialRedemptionPaymentRestAmount" text="Noch zu zahlender Betrag"/>
+
+        <text name="els_settingsMenu_sectionTitle"                          text="Erweitertes Kredit System"/>
+        <text name="els_settingsMenu_dynamicLoanInterestTitle"              text="Dynamischer Kreditzins"/>
+        <text name="els_settingsMenu_dynamicLoanInterestDescription"        text="Der Kreditzins verändert sich von Monat zu Monat."/>
+        <text name="els_settingsMenu_dynamicLoanInterestValueTitle"         text="Aktueller Kreditzins"/>
+        <text name="els_settingsMenu_dynamicLoanInterestValueDescription"   text="Hiermit kannst du den Kreditzins einstellen. Hierfür muss der dynamische Kreditzins ausgeschaltet sein."/>
     </texts>
 </l10n>

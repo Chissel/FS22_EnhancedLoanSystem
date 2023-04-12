@@ -19,6 +19,7 @@ function ELS_specialRedemptionPaymentDialog.new(target, custom_mt, i18n)
     self.i18n = i18n
 	self.callbackArgs = nil
     self.restAmount = 0
+    self.currentMoney = 0
 
 	return self
 end
@@ -37,8 +38,11 @@ function ELS_specialRedemptionPaymentDialog:resetUI()
     self.yesButton:setDisabled(true)
 end
 
-function ELS_specialRedemptionPaymentDialog:setAvailableProperties(restAmount)
+function ELS_specialRedemptionPaymentDialog:setAvailableProperties(restAmount, currentMoney)
     self.restAmount = restAmount
+    if currentMoney > 0 then
+        self.currentMoney = currentMoney
+    end
 end
 
 function ELS_specialRedemptionPaymentDialog:setCallback(callbackFunc, target)
@@ -76,6 +80,10 @@ function ELS_specialRedemptionPaymentDialog:onTextChanged(element, text)
                 element:setText(tostring(value))
             end
 
+            if currentValue > self.currentMoney then
+                value = self.currentMoney
+                element:setText(tostring(value))
+            end
 
             element.lastValidText = value
         else

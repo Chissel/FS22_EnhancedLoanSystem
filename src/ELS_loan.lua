@@ -4,10 +4,15 @@
 ELS_loan = {}
 local ELS_loan_mt = Class(ELS_loan, Object)
 
-function ELS_loan.new(farmId, amount, interest, duration, paidOff)
-    local self = {}
-    setmetatable(self, ELS_loan_mt)
+function ELS_loan.new(isServer, isClient)
+    local self = Object.new(isServer, isClient, ELS_loan_mt)
 
+	self.loanDirtyFlag = self:getNextDirtyFlag()
+
+	return self
+end
+
+function ELS_loan:init(farmId, amount, interest, duration, paidOff)
     self.farmId = farmId
     self.amount = amount
     self.interest = interest
@@ -15,23 +20,6 @@ function ELS_loan.new(farmId, amount, interest, duration, paidOff)
     self.restDuration = duration * 12
     self.paidOff = paidOff or false
     self.restAmount = amount
-
-	return self
-end
-
-function ELS_loan.recovery(farmId, amount, interest, duration, restDuration, paidOff, restAmount)
-    local self = {}
-    setmetatable(self, ELS_loan_mt)
-
-    self.farmId = farmId
-    self.amount = amount
-    self.interest = interest
-    self.duration = duration
-    self.restDuration = restDuration
-    self.paidOff = paidOff
-    self.restAmount = restAmount
-
-	return self
 end
 
 function ELS_loan:calculateTotalAmount()
@@ -55,90 +43,65 @@ function ELS_loan:calculateInterestPortion()
     return interestPortion / 12
 end
 
+function ELS_loan:loadFromXMLFile(xmlFile, key)
+    self.farmId = xmlFile:getInt(key.."#farmId")
+    self.amount = xmlFile:getInt(key.."#amount")
+    self.interest = xmlFile:getFloat(key.."#interest")
+    self.duration = xmlFile:getInt(key.."#duration")
+    self.restDuration = xmlFile:getInt(key.."#restDuration")
+    self.paidOff = xmlFile:getBool(key.."#paidOff")
+    self.restAmount = xmlFile:getInt(key.."#restAmount")
+    return true
+end
+
+function ELS_loan:saveToXMLFile(xmlFile, key)
+    xmlFile:setInt(key.."#farmId", self.farmId)
+    xmlFile:setInt(key.."#amount", self.amount)
+    xmlFile:setFloat(key.."#interest", self.interest)
+    xmlFile:setInt(key.."#duration", self.duration)
+    xmlFile:setInt(key.."#restDuration", self.restDuration)
+    xmlFile:setBool(key.."#paidOff", self.paidOff)
+    xmlFile:setInt(key.."#restAmount", self.restAmount)
+end
+
+function ELS_loan:readStream(streamId, connection)
+	ELS_loan:superClass().readStream(self, streamId, connection)
+
+    self.farmId = streamReadInt32(streamId)
+    self.amount = streamReadInt32(streamId)
+    self.interest = streamReadFloat32(streamId)
+    self.duration = streamReadInt32(streamId)
+    self.restDuration = streamReadInt32(streamId)
+    self.paidOff = streamReadBool(streamId)
+    self.restAmount = streamReadInt32(streamId)
+
+    table.insert(g_els_loanManager.loans[self.farmId], self)
+end
+
+function ELS_loan:writeStream(streamId, connection)
+	ELS_loan:superClass().writeStream(self, streamId, connection)
+
+    streamWriteInt32(streamId, self.farmId)
+    streamWriteInt32(streamId, self.amount)
+    streamWriteFloat32(streamId, self.interest)
+    streamWriteInt32(streamId, self.duration)
+    streamWriteInt32(streamId, self.restDuration)
+    streamWriteBool(streamId, self.paidOff)
+    streamWriteInt32(streamId, self.restAmount)
+end
+
 function ELS_loan:readUpdateStream(streamId, timestamp, connection)
-	if connection:getIsServer() then
-		if streamReadBool(streamId) then
-			local fillType = streamReadUIntN(streamId, FillTypeManager.SEND_NUM_BITS)
+    ELS_loan:superClass().readUpdateStream(self, streamId, timestamp, connection)
 
-			self:setFillType(fillType)
-		end
-
-		if streamReadBool(streamId) then
-			self:setFillLevel(streamReadFloat32(streamId))
-		end
-
-		if streamReadBool(streamId) then
-			if streamReadBool(streamId) then
-				local wrapDiffuse = NetworkUtil.convertFromNetworkFilename(streamReadString(streamId))
-
-				self:setWrapTextures(wrapDiffuse, nil)
-			end
-
-			if streamReadBool(streamId) then
-				local wrapNormal = NetworkUtil.convertFromNetworkFilename(streamReadString(streamId))
-
-				self:setWrapTextures(nil, wrapNormal)
-			end
-		end
-
-		if streamReadBool(streamId) then
-			self:setWrappingState(streamReadUInt8(streamId) / 255, false)
-		end
-
-		if streamReadBool(streamId) then
-			local r = streamReadFloat32(streamId)
-			local g = streamReadFloat32(streamId)
-			local b = streamReadFloat32(streamId)
-			local a = streamReadFloat32(streamId)
-
-			self:setColor(r, g, b, a)
-		end
-
-		if streamReadBool(streamId) then
-			self.isFermenting = streamReadBool(streamId)
-			self.fermentingPercentage = streamReadUInt8(streamId) / 255
-		end
-	end
-
-	Bale:superClass().readUpdateStream(self, streamId, timestamp, connection)
+    self.restDuration = streamReadInt32(streamId)
+    self.paidOff = streamReadBool(streamId)
+    self.restAmount = streamReadInt32(streamId)
 end
 
 function ELS_loan:writeUpdateStream(streamId, connection, dirtyMask)
-	if not connection:getIsServer() then
-		if streamWriteBool(streamId, bitAND(dirtyMask, self.fillTypeDirtyFlag) ~= 0) then
-			streamWriteUIntN(streamId, self.fillType, FillTypeManager.SEND_NUM_BITS)
-		end
+    ELS_loan:superClass().writeUpdateStream(self, streamId, connection, dirtyMask)
 
-		if streamWriteBool(streamId, bitAND(dirtyMask, self.fillLevelDirtyFlag) ~= 0) then
-			streamWriteFloat32(streamId, self.fillLevel)
-		end
-
-		if streamWriteBool(streamId, bitAND(dirtyMask, self.texturesDirtyFlag) ~= 0) then
-			if streamWriteBool(streamId, self.wrapDiffuse ~= nil) then
-				streamWriteString(streamId, NetworkUtil.convertToNetworkFilename(self.wrapDiffuse))
-			end
-
-			if streamWriteBool(streamId, self.wrapNormal ~= nil) then
-				streamWriteString(streamId, NetworkUtil.convertToNetworkFilename(self.wrapNormal))
-			end
-		end
-
-		if streamWriteBool(streamId, bitAND(dirtyMask, self.wrapStateDirtyFlag) ~= 0) then
-			streamWriteUInt8(streamId, MathUtil.clamp(self.wrappingState * 255, 0, 255))
-		end
-
-		if streamWriteBool(streamId, bitAND(dirtyMask, self.wrapColorDirtyFlag) ~= 0) then
-			streamWriteFloat32(streamId, self.wrappingColor[1])
-			streamWriteFloat32(streamId, self.wrappingColor[2])
-			streamWriteFloat32(streamId, self.wrappingColor[3])
-			streamWriteFloat32(streamId, self.wrappingColor[4])
-		end
-
-		if streamWriteBool(streamId, bitAND(dirtyMask, self.fermentingDirtyFlag) ~= 0) then
-			streamWriteBool(streamId, self.isFermenting)
-			streamWriteUInt8(streamId, MathUtil.clamp(self.fermentingPercentage * 255, 0, 255))
-		end
-	end
-
-	Bale:superClass().writeUpdateStream(self, streamId, connection, dirtyMask)
+    streamWriteInt32(streamId, self.restDuration)
+    streamWriteBool(streamId, self.paidOff)
+    streamWriteInt32(streamId, self.restAmount)
 end

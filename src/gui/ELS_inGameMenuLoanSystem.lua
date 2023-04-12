@@ -85,7 +85,7 @@ function ELS_inGameMenuLoanSystem:onFrameOpen(element)
         self.specialRedemptionPayment.disabled = true
     end
 
-    self.currentLoanInterest:setText(string.format("%s: %s", self.i18n:getText("els_ui_inGameMenuLoanInterest"), tostring(g_els_loanManager.loanInterest)))
+    self.currentLoanInterest:setText(string.format("%s: %s", self.i18n:getText("els_ui_inGameMenuLoanInterest"), tostring(g_els_loanManager.loanManagerProperties.loanInterest)))
 
     self:setMenuButtonInfoDirty()
     FocusManager:setFocus(self.loanTable)
@@ -130,7 +130,7 @@ end
 
 function ELS_inGameMenuLoanSystem:onTakeLoanButton()
     local farm = g_farmManager:getFarmByUserId(g_currentMission.playerUserId)
-    self:showTakeLoanDialog({callback=self.takeLoanCallback, target=self, maxLoanAmount=g_els_loanManager:maxLoanAmountForFarm(farm.farmId), loanInterest=g_els_loanManager.loanInterest})
+    self:showTakeLoanDialog({callback=self.takeLoanCallback, target=self, maxLoanAmount=g_els_loanManager:maxLoanAmountForFarm(farm.farmId), loanInterest=g_els_loanManager.loanManagerProperties.loanInterest})
 end
 
 function ELS_inGameMenuLoanSystem:showTakeLoanDialog(args)
@@ -149,7 +149,11 @@ end
 function ELS_inGameMenuLoanSystem:takeLoanCallback(success, amount, duration)
     if success then
         local farm = g_farmManager:getFarmByUserId(g_currentMission.playerUserId)
-        g_els_loanManager:addLoan(ELS_loan.new(farm.farmId, amount, g_els_loanManager.loanInterest, duration))
+        local loan = ELS_loan.new(g_currentMission:getIsServer(), g_currentMission:getIsClient())
+        loan:init(farm.farmId, amount, g_els_loanManager.loanManagerProperties.loanInterest, duration)
+
+        g_els_loanManager:sendOrDoAddLoan(loan)
+
         self:updateContent()
     end
 end
@@ -161,19 +165,21 @@ function ELS_inGameMenuLoanSystem:showSpecialRedemptionPaymentDialog(args)
         local target = dialog.target
 
         target:setCallback(args.callback, args.target)
-        target:setAvailableProperties(args.restAmount)
+        target:setAvailableProperties(args.restAmount, args.currentMoney)
 
         g_gui:showDialog("ELS_specialRedemptionPaymentDialog")
     end
 end
 
 function ELS_inGameMenuLoanSystem:onSpecialRedemptionPaymentButton()
-    self:showSpecialRedemptionPaymentDialog({callback=self.specialRedemptionPaymentCallback, target=self, restAmount=self.currentLoan.restAmount})
+    local farm = g_farmManager:getFarmByUserId(g_currentMission.playerUserId)
+    self:showSpecialRedemptionPaymentDialog({callback=self.specialRedemptionPaymentCallback, target=self, restAmount=self.currentLoan.restAmount, currentMoney=farm.money})
 end
 
 function ELS_inGameMenuLoanSystem:specialRedemptionPaymentCallback(success, amount)
     if success then
-        g_els_loanManager:specialRedemptionPayment(self.currentLoan, amount)
+        g_els_loanManager:sendOrDoSpecialRedemptionPayment(self.currentLoan, amount)
+
         self:updateContent()
     end
 end

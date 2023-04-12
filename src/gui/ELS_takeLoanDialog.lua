@@ -117,7 +117,8 @@ function ELS_takeLoanDialog:updateInfoIfNeeded()
         local amount = tonumber(self.loanAmountInput.lastValidText)
         local duration = tonumber(self.loanDurationInput.lastValidText)
 
-        local loan = ELS_loan.new(0, amount, self.loanInterest, duration)
+        local loan = ELS_loan.new(false, false)
+        loan:init(0, amount, self.loanInterest, duration)
         local periodRate = loan:calculateAnnuity()
         local totalAmount = loan:calculateTotalAmount()
 
