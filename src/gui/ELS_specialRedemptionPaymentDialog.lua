@@ -6,7 +6,7 @@ local ELS_specialRedemptionPaymentDialog_mt = Class(ELS_specialRedemptionPayment
 
 ELS_specialRedemptionPaymentDialog.CONTROLS = {
     "yesButton",
-    "cancelButton",
+    "backButton",
 	"amountInput",
 	"restAmountField"
 }
@@ -85,7 +85,10 @@ function ELS_specialRedemptionPaymentDialog:onTextChanged(element, text)
                 element:setText(tostring(value))
             end
 
-            element.lastValidText = value
+            local formattedValue = string.format("%.0f", value)
+            element:setText(formattedValue)
+
+            element.lastValidText = formattedValue
         else
             element:setText(element.lastValidText)
         end

@@ -22,7 +22,7 @@
 
         <GuiElement type="flowLayout" profile="buttonBoxDialog" id="buttonsPC" >
             <GuiElement type="button" profile="buttonOK" text="$l10n_els_ui_takeLoan" onClick="onClickOk" id="yesButton" />
-            <GuiElement type="button" profile="buttonCancel" text="$l10n_button_cancel" onClick="onClickCancel" id="cancelButton" />
+            <GuiElement type="button" profile="buttonBack" text="$l10n_button_back" onClick="onClickCancel" id="backButton" />
         </GuiElement>
     </GuiElement>
 </GUI>

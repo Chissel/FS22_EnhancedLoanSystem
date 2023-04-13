@@ -85,7 +85,7 @@ function ELS_inGameMenuLoanSystem:onFrameOpen(element)
         self.specialRedemptionPayment.disabled = true
     end
 
-    self.currentLoanInterest:setText(string.format("%s: %s", self.i18n:getText("els_ui_inGameMenuLoanInterest"), tostring(g_els_loanManager.loanManagerProperties.loanInterest)))
+    self.currentLoanInterest:setText(string.format("%s: %s", self.i18n:getText("els_ui_inGameMenuLoanInterest"), string.format("%.1f", g_els_loanManager.loanManagerProperties.loanInterest)))
 
     self:setMenuButtonInfoDirty()
     FocusManager:setFocus(self.loanTable)

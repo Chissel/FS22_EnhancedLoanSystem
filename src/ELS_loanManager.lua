@@ -118,7 +118,50 @@ end
 
 function ELS_loanManager:maxLoanAmountForFarm(farmId)
     local farm = g_farmManager:getFarmById(farmId)
-    return farm.loanMax
+
+    local vehicleAmount = self:calculateVehicleAmount(farmId)
+    local loanAmount = self:calculateLoanAmount(farmId)
+    local farmlandAmount = self:calculateFarmlandAmount(farmId)
+
+    local totalAmount = farm.money + vehicleAmount + farmlandAmount - loanAmount
+    return totalAmount
+end
+
+function ELS_loanManager:calculateVehicleAmount(farmId)
+	local amount = 0
+
+    for _, vehicle in ipairs(g_currentMission.vehicles) do
+        if vehicle.ownerFarmId == farmId and vehicle.propertyState == Vehicle.PROPERTY_STATE_OWNED and vehicle.getSellPrice ~= nil then
+            amount = amount + vehicle:getSellPrice()
+        end
+    end
+
+    return amount
+end
+
+function ELS_loanManager:calculateLoanAmount(farmId)
+	local amount = 0
+    local loans = self:currentLoans(farmId)
+
+    for _, loan in pairs(loans) do
+        if not loan.paidOff then
+            amount = amount + loan.restAmount
+        end
+    end
+
+    return amount
+end
+
+function ELS_loanManager:calculateFarmlandAmount(farmId)
+	local amount = 0
+
+    for _, farmland in pairs(g_farmlandManager:getFarmlands()) do
+        if g_farmlandManager:getFarmlandOwner(farmland.id) == farmId then
+            amount = amount + farmland.price
+        end
+    end
+
+    return amount
 end
 
 -- Calculate loans on period change

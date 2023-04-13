@@ -9,10 +9,24 @@
     <description>
 <en>
 <![CDATA[
+This mod makes the credit system a bit more realistic. However, the standard game credits will be deactivated. If there are still loans running, they will be transferred to the new system.
+
+With this system it is possible to take annulment loans. For this, a loan with a fixed amount, a term and a loan interest rate is concluded. This calculates the monthly installment, which is debited at the end of each month.
+To make this a bit more realistic, the loan interest rate can rise, fall or stay the same each month. This makes it all the more crucial when the loan is taken out. However, you can also change this variable loan interest rate to a fixed loan interest rate in the settings.
+
+How does an annulment loan work? Here is a brief explanation:
+An annulment loan has an annulity, the monthly rate, and a loan interest rate. This annulity is made up of the repayment amount and the interest amount. The interest amount is calculated by multiplying the loan interest rate by the remaining amount of the loan. As a result, the interest amount keeps decreasing and the repayment amount keeps increasing.
 ]]>
 </en>
 <de>
 <![CDATA[
+Dieser Mod macht das Kreditsystem etwas realistischer. Die Standardspiel Kredite werden hierbei jedoch deaktiviert. Sollten noch Kredite am laufen sein, werden diese in das neue System übertragen.
+
+Mit diesem System ist es möglich Annulitätendarlehn aufzunehmen. Hierfür wird ein Kredit mit einem festen Betrag, einer Laufzeit und einem Kreditzins abgeschlossen. Dadurch wird die monatliche Rate berechnet, die jeweils zum Monatsende abgebucht wird.
+Um dies etwas realistischer zu gestalten kann der Kreditzins jeden Monat steigen, fallen oder gleich bleiben. Dadurch wird es umso entscheidender, wann der Kredit abgeschlossen wird. Diesen variablen Kreditzins kann man jedoch auch in den Einstellungen auf einen festen Kreditzins ändern.
+
+Wie funktioniert ein Annulitätendarlehn? Hier eine kurze Erklärung:
+Ein Annulitätendarlehn besitzt eine Annulität, die monatliche Rate, und einem Kreditzins. Diese Annulität setzt sich aus dem Tilgungsbetrag und dem Zinsbetrag zusammen. Der Zinsbetrag wird berechnet durch den Kreditzins multipliziert mit dem Restbetrag des Kredites. Dadurch sinkt der Zinsbetrag immer weiter und der Tilgungsbetrag steigt.
 ]]>
 </de>
 </description>

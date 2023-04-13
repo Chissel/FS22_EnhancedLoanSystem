@@ -6,7 +6,7 @@ local ELS_takeLoanDialog_mt = Class(ELS_takeLoanDialog, MessageDialog)
 
 ELS_takeLoanDialog.CONTROLS = {
     "yesButton",
-    "cancelButton",
+    "backButton",
 	"loanAmountInput",
     "loanDurationInput",
     "loanInterestField",
@@ -25,6 +25,7 @@ function ELS_takeLoanDialog.new(target, custom_mt, i18n)
     self.maxLoanAmount = 0
     self.loanInterest = 0
 
+
 	return self
 end
 
@@ -33,7 +34,7 @@ function ELS_takeLoanDialog:onOpen()
 
     self:resetUI()
 
-    self.loanAmountInputText:setText(string.format("%s (Max. %s)", self.i18n:getText("els_ui_takeLoanAmountInputText"), tostring(self.maxLoanAmount)))
+    self.loanAmountInputText:setText(string.format("%s (Max. %s)", self.i18n:getText("els_ui_takeLoanAmountInputText"), string.format("%.0f", self.maxLoanAmount)))
 
 	FocusManager:setFocus(self.loanAmountInput)
 end
@@ -45,13 +46,13 @@ function ELS_takeLoanDialog:resetUI()
     self.loanDurationInput.lastValidText = ""
     self.yesButton:setDisabled(true)
 
-    self.loanInterestField:setText(string.format("%s: %s", self.i18n:getText("els_ui_takeLoanInterest"), tostring(self.loanInterest)))
+    self.loanInterestField:setText(string.format("%s: %s", self.i18n:getText("els_ui_takeLoanInterest"), string.format("%.1f", self.loanInterest)))
     self.loanPeriodRateField:setText(string.format("%s: %s", self.i18n:getText("els_ui_takeLoanPeriodRate"), "-"))
     self.loanTotalAmountField:setText(string.format("%s: %s", self.i18n:getText("els_ui_takeLoanTotalAmount"), "-"))
 end
 
 function ELS_takeLoanDialog:setAvailableProperties(maxLoanAmount, loanInterest)
-    self.maxLoanAmount = maxLoanAmount
+    self.maxLoanAmount = math.max(maxLoanAmount, 0)
     self.loanInterest = loanInterest
 end
 
@@ -92,7 +93,10 @@ function ELS_takeLoanDialog:onTextChanged(element, text)
                 end
             end
 
-            element.lastValidText = value
+            local formattedValue = string.format("%.0f", value)
+            element:setText(formattedValue)
+
+            element.lastValidText = formattedValue
         else
             element:setText(element.lastValidText)
         end

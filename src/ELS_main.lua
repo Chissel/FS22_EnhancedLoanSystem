@@ -24,7 +24,35 @@ function loadedMission()
 		
     fixInGameMenu(guiLoanSystem, "InGameMenuLoanSystem", {0,0,1024,1024}, 3, nil)
 
-	guiLoanSystem:initialize()	
+	guiLoanSystem:initialize()
+end
+
+function onStartMission()
+    if g_currentMission:getIsServer() then
+        convertIngameLoans()
+    end
+end
+
+function convertIngameLoans()
+    for _, farm in pairs(g_farmManager:getFarms()) do
+        if farm.loan > 0 then
+            local farmId = farm.farmId
+            local amount = farm.loan
+            local loan = ELS_loan.new(g_currentMission:getIsServer(), g_currentMission:getIsClient())
+            loan:init(farmId, amount, g_els_loanManager.loanManagerProperties.loanInterest, 3)
+
+            loan:register()
+            local farmLoans = g_els_loanManager.loans[loan.farmId] or {}
+            table.insert(farmLoans, loan)
+            g_els_loanManager.loans[loan.farmId] = farmLoans
+
+            farm.loan = 0
+        end
+    end
+end
+
+function hasPlayerLoanPermission()
+    return false
 end
 
 function fixInGameMenu(frame, pageName, uvs, position, predicateFunc)
@@ -84,9 +112,11 @@ end
 
 function init()
     Mission00.loadMission00Finished = Utils.appendedFunction(Mission00.loadMission00Finished, loadedMission)
+    Mission00.onStartMission = Utils.appendedFunction(Mission00.onStartMission, onStartMission)
     Mission00.loadItemsFinished = Utils.appendedFunction(Mission00.loadItemsFinished, ELS_loanManager.loadFromXMLFile)
     FSCareerMissionInfo.saveToXMLFile = Utils.appendedFunction(FSCareerMissionInfo.saveToXMLFile, ELS_loanManager.saveToXMLFile)
     Mission00.loadAdditionalFilesFinished = Utils.appendedFunction(Mission00.loadAdditionalFilesFinished, ELS_loanManager.loadMapData)
+    InGameMenuFinancesFrame.hasPlayerLoanPermission = Utils.appendedFunction(InGameMenuFinancesFrame.hasPlayerLoanPermission, hasPlayerLoanPermission)
 end
 
 init()
