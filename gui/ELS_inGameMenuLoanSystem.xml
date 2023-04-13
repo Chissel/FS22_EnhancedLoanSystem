@@ -6,7 +6,7 @@
             <GuiElement type="text" profile="ELS_loanInterestText" text="$l10n_els_ui_inGameMenuLoanInterest" id="currentLoanInterest"/>
         </GuiElement>
 
-        <GuiElement type="empty" profile="ingameMenuSettingsBox" id="mainBox">
+        <GuiElement type="empty" profile="ELS_ingameMenuListBox" id="mainBox">
             <GuiElement type="bitmap" profile="ELS_headerBox" id="tableHeaderBox">
                 <GuiElement type="text" profile="ELS_headerCell" position="0px 0px"     size="200px 40.77px" text="$l10n_els_ui_header_amount"/>
                 <GuiElement type="text" profile="ELS_headerCell" position="200px 0px"   size="200px 40.77px" text="$l10n_els_ui_header_interest"/>
@@ -15,6 +15,7 @@
                 <GuiElement type="text" profile="ELS_headerCell" position="900px 0px"   size="200px 40.77px" text="$l10n_els_ui_header_restDuration"/>
                 <GuiElement type="text" profile="ELS_headerCell" position="1100px 0px"  size="200px 40.77px" text="$l10n_els_ui_header_restAmount"/>
             </GuiElement>
+
             <GuiElement type="smoothList" profile="ELS_list" id="loanTable" focusInit="onOpen" listSectionHeader="section">
                 <GuiElement type="listItem" profile="ELS_listItem" name="fieldCalculatorRowTemplate" >
                     <GuiElement type="bitmap" profile="emptyPanel">
@@ -29,6 +30,10 @@
                 <GuiElement type="listItem" profile="ingameMenuContractsListCategory" name="section">
                     <GuiElement type="text" profile="ingameMenuContractsListCategoryTitle" text="Contracts Title" name="title"/>
                 </GuiElement>
+            </GuiElement>
+
+            <GuiElement type="threePartBitmap" profile="ELS_ingameMenuSlider" >
+                <GuiElement type="slider" profile="ELS_ingameMenuSliderBar" dataElementId="loanTable" handleFocus="true" focusInit="onOpen"/>
             </GuiElement>
         </GuiElement>
     </GuiElement>

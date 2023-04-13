@@ -109,7 +109,13 @@ function ELS_takeLoanDialog:onTextChanged(element, text)
 end
 
 function ELS_takeLoanDialog:disableAcceptButtonIfNeeded()
-    if self.loanAmountInput.lastValidText ~= nil and self.loanDurationInput.lastValidText ~= nil and self.loanAmountInput.lastValidText ~= "" and self.loanDurationInput.lastValidText ~= "" then
+    if self.loanAmountInput.lastValidText ~= nil and
+        self.loanDurationInput.lastValidText ~= nil and
+        self.loanAmountInput.lastValidText ~= "" and
+        self.loanDurationInput.lastValidText ~= "" and
+        tonumber(self.loanAmountInput.lastValidText) > 0 and
+        tonumber(self.loanDurationInput.lastValidText) > 0
+    then
         self.yesButton:setDisabled(false)
     else
         self.yesButton:setDisabled(true)
@@ -117,7 +123,13 @@ function ELS_takeLoanDialog:disableAcceptButtonIfNeeded()
 end
 
 function ELS_takeLoanDialog:updateInfoIfNeeded()
-    if self.loanAmountInput.lastValidText ~= nil and self.loanDurationInput.lastValidText ~= nil and self.loanAmountInput.lastValidText ~= "" and self.loanDurationInput.lastValidText ~= "" then
+    if self.loanAmountInput.lastValidText ~= nil and
+        self.loanDurationInput.lastValidText ~= nil and
+        self.loanAmountInput.lastValidText ~= "" and
+        self.loanDurationInput.lastValidText ~= "" and
+        tonumber(self.loanAmountInput.lastValidText) > 0 and
+        tonumber(self.loanDurationInput.lastValidText) > 0
+    then
         local amount = tonumber(self.loanAmountInput.lastValidText)
         local duration = tonumber(self.loanDurationInput.lastValidText)
 
@@ -128,5 +140,8 @@ function ELS_takeLoanDialog:updateInfoIfNeeded()
 
         self.loanPeriodRateField:setText(string.format("%s: %s", self.i18n:getText("els_ui_takeLoanPeriodRate"), string.format("%.0f", periodRate)))
         self.loanTotalAmountField:setText(string.format("%s: %s", self.i18n:getText("els_ui_takeLoanTotalAmount"), string.format("%.0f", totalAmount)))
+    else
+        self.loanPeriodRateField:setText(string.format("%s: %s", self.i18n:getText("els_ui_takeLoanPeriodRate"), "-"))
+        self.loanTotalAmountField:setText(string.format("%s: %s", self.i18n:getText("els_ui_takeLoanTotalAmount"), "-"))
     end
 end

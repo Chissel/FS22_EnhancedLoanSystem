@@ -15,27 +15,28 @@
         <Value name="debugEnabled" value="false"/>
     </Profile>
 
-    <Profile name="ELS_headerPanel" extends="emptyPanel" with="anchorTopLeft">
-        <Value name="size" value="1536px 64px"/>
-        <Value name="position" value="44px 64px"/>
+    <Profile name="ELS_headerPanel" extends="emptyPanel" with="anchorTopCenter">
+        <Value name="size" value="1300px 64px"/>
+        <Value name="position" value="0px 64px"/>
     </Profile>
 
-    <Profile name="ELS_headerText" extends="textDefault" with="anchorMiddleLeft">
+    <Profile name="ELS_headerText" extends="textDefault">
         <Value name="size" value="500px 64px" />
-        <Value name="position" value="0px 0" />
+        <Value name="position" value="0px 0px" />
         <Value name="textSize" value="31px"/>
         <Value name="textBold" value="false"/>
         <Value name="textUpperCase" value="true"/>
         <Value name="textDisabledColor" value="$preset_colorDisabled"/>
     </Profile>
 
-    <Profile name="ELS_loanInterestText" extends="textDefault" with="anchorMiddleRight">
-        <Value name="size" value="500px 64px" />
-        <Value name="position" value="0px 0" />
+    <Profile name="ELS_loanInterestText" extends="textDefault">
+        <Value name="size" value="800px 64px" />
+        <Value name="position" value="500px 0px" />
         <Value name="textSize" value="31px"/>
         <Value name="textBold" value="false"/>
         <Value name="textUpperCase" value="true"/>
         <Value name="textDisabledColor" value="$preset_colorDisabled"/>
+        <Value name="textAlignment" value="right"/>
     </Profile>
 
     <Profile name="ELS_headerBox" extends="emptyPanel" with="anchorTopCenter">
@@ -60,13 +61,27 @@
         <Value name="textVerticalAlignment" value="middle"/>
     </Profile>
 
+    <Profile name="ELS_ingameMenuListBox" extends="emptyPanel" with="anchorTopCenter">
+        <Value name="size" value="1400px 756px"/>
+        <Value name="position" value="0" />
+    </Profile>
+
     <Profile name="ELS_list" extends="ingameMenuContractsList" with="anchorTopCenter">
-        <Value name="size" value="1300px 693.09px"/>
+        <Value name="size" value="1300px 693px"/>
         <Value name="position" value="0px -60px"/>
     </Profile>
 
     <Profile name="ELS_listItem" extends="ingameMenuContractsListItem" with="anchorBottomLeft">
         <Value name="size" value="1300px 40.77px"/>
+    </Profile>
+
+    <Profile name="ELS_ingameMenuSlider" extends="verticalListSliderRightDocked">
+        <Value name="size" value="12px 693px" />
+        <Value name="position" value="0px -60px" />
+    </Profile>
+
+    <Profile name="ELS_ingameMenuSliderBar" extends="verticalListSliderBar">
+        <Value name="size" value="6px 685px" />
     </Profile>
 
     <Profile name="ELS_rowCell" extends="baseReference">

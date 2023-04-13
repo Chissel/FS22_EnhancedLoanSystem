@@ -12,6 +12,7 @@
 This mod makes the credit system a bit more realistic. However, the standard game credits will be deactivated. If there are still loans running, they will be transferred to the new system.
 
 With this system it is possible to take annulment loans. For this, a loan with a fixed amount, a term and a loan interest rate is concluded. This calculates the monthly installment, which is debited at the end of each month.
+The bank requires collateral here, so the maximum loan amount is calculated from the current retail value of your vehicles, fields, cash and your existing loans.
 To make this a bit more realistic, the loan interest rate can rise, fall or stay the same each month. This makes it all the more crucial when the loan is taken out. However, you can also change this variable loan interest rate to a fixed loan interest rate in the settings.
 
 How does an annulment loan work? Here is a brief explanation:
@@ -23,6 +24,7 @@ An annulment loan has an annulity, the monthly rate, and a loan interest rate. T
 Dieser Mod macht das Kreditsystem etwas realistischer. Die Standardspiel Kredite werden hierbei jedoch deaktiviert. Sollte eine Farm noch einen Kredit haben, so wird dieser in das neue System übertragen.
 
 Mit diesem System ist es möglich Annulitätendarlehn aufzunehmen. Hierfür wird ein Kredit mit einem festen Betrag, einer Laufzeit und einem Kreditzins abgeschlossen. Dadurch wird die monatliche Rate berechnet, die jeweils zum Monatsende abgebucht wird.
+Die Bank verlangt hierbei eine Sicherheit, sodass der maximale Kredithöhe sich aus dem aktuellen Verkaufswert deiner Fahrzeuge, Felder, Bargeld und deinen bereits laufenden Krediten berechnet.
 Um dies etwas realistischer zu gestalten kann der Kreditzins jeden Monat steigen, fallen oder gleich bleiben. Dadurch wird es umso entscheidender, wann der Kredit abgeschlossen wird. Diesen variablen Kreditzins kann man jedoch auch in den Einstellungen auf einen festen Kreditzins ändern.
 
 Wie funktioniert ein Annulitätendarlehn? Hier eine kurze Erklärung:
