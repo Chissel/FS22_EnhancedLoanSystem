@@ -79,15 +79,10 @@ function ELS_inGameMenuLoanSystem:onFrameOpen(element)
 	self:setButtons()
     self:updateContent()
 
-    if self.currentLoan ~= nil and not self.currentLoan.paidOff then
-        self.specialRedemptionPayment.disabled = false
-    else
-        self.specialRedemptionPayment.disabled = true
-    end
-
     self.currentLoanInterest:setText(string.format("%s: %s", self.i18n:getText("els_ui_inGameMenuLoanInterest"), string.format("%.1f", g_els_loanManager.loanManagerProperties.loanInterest)))
 
-    self:setMenuButtonInfoDirty()
+    self:updateButtons()
+
     FocusManager:setFocus(self.loanTable)
 end
 
@@ -112,7 +107,25 @@ function ELS_inGameMenuLoanSystem:onListSelectionChanged(list, section, index)
     end
 
     self.currentLoan = loan
-    self.specialRedemptionPayment.disabled = loan.paidOff
+
+    self:updateButtons()
+end
+
+function ELS_inGameMenuLoanSystem:updateButtons()
+    local farm = g_farmManager:getFarmByUserId(g_currentMission.playerUserId)
+    if farm.farmId == FarmManager.SPECTATOR_FARM_ID or not g_currentMission:getHasPlayerPermission(Farm.PERMISSION.MANAGE_RIGHTS) then
+        self.specialRedemptionPayment.disabled = true
+        self.takeLoanButton.disabled = true
+    else
+        self.takeLoanButton.disabled = false
+    end
+
+    if self.currentLoan ~= nil and not self.currentLoan.paidOff then
+        self.specialRedemptionPayment.disabled = false
+    else
+        self.specialRedemptionPayment.disabled = true
+    end
+
     self:setMenuButtonInfoDirty()
 end
 
