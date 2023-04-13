@@ -20,7 +20,7 @@ An annulment loan has an annulity, the monthly rate, and a loan interest rate. T
 </en>
 <de>
 <![CDATA[
-Dieser Mod macht das Kreditsystem etwas realistischer. Die Standardspiel Kredite werden hierbei jedoch deaktiviert. Sollten noch Kredite am laufen sein, werden diese in das neue System übertragen.
+Dieser Mod macht das Kreditsystem etwas realistischer. Die Standardspiel Kredite werden hierbei jedoch deaktiviert. Sollte eine Farm noch einen Kredit haben, so wird dieser in das neue System übertragen.
 
 Mit diesem System ist es möglich Annulitätendarlehn aufzunehmen. Hierfür wird ein Kredit mit einem festen Betrag, einer Laufzeit und einem Kreditzins abgeschlossen. Dadurch wird die monatliche Rate berechnet, die jeweils zum Monatsende abgebucht wird.
 Um dies etwas realistischer zu gestalten kann der Kreditzins jeden Monat steigen, fallen oder gleich bleiben. Dadurch wird es umso entscheidender, wann der Kredit abgeschlossen wird. Diesen variablen Kreditzins kann man jedoch auch in den Einstellungen auf einen festen Kreditzins ändern.
