@@ -35,16 +35,6 @@ end
 
 function ELS_addRemoveMoneyEvent:run(connection)
     if not connection:getIsServer() then
-        local moneyType = MoneyType.LOAN
-
-        if self.amount < 0 then
-            moneyType = MoneyType.LOAN_INTEREST
-        end
-
-        g_currentMission:addMoneyChange(self.amount, self.farmId, moneyType, true)
-        local farm = g_farmManager:getFarmById(self.farmId)
-        if farm ~= nil then
-            farm:changeBalance(self.amount, moneyType)
-        end
+        g_els_loanManager:addRemoveMoney(self.amount, self.farmId)
     end
 end

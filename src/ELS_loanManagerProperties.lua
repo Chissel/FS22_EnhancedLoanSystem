@@ -4,13 +4,15 @@
 ELS_loanManagerProperties = {}
 local ELS_loanManagerProperties_mt = Class(ELS_loanManagerProperties, Object)
 
+InitObjectClass(ELS_loanManagerProperties, "ELS_loanManagerProperties")
+
 ELS_loanManagerProperties.minLoanInterest = 1.0
 ELS_loanManagerProperties.maxLoanInterest = 10.0
 ELS_loanManagerProperties.loanInterestSteps = 0.1
 ELS_loanManagerProperties.loanInterestStartValue = 3.5
 
-function ELS_loanManagerProperties.new(isServer, isClient)
-    local self = Object.new(isServer, isClient, ELS_loanManagerProperties_mt)
+function ELS_loanManagerProperties.new(isServer, isClient, customMt)
+    local self = Object.new(isServer, isClient, customMt or ELS_loanManagerProperties_mt)
 
     self.loanInterest = ELS_loanManagerProperties.loanInterestStartValue
     self.dynamicLoanInterest = true

@@ -16,6 +16,8 @@ source(g_currentModDirectory .. "src/events/ELS_specialRedemptionPaymentEvent.lu
 
 addModEventListener(ELS_loanManager)
 
+g_els_settingsMenuExtension = {}
+
 function loadedMission()
     g_gui:loadProfiles(modDirectory.."gui/ELS_guiProfiles.xml")
 
@@ -87,9 +89,6 @@ function init()
     Mission00.loadItemsFinished = Utils.appendedFunction(Mission00.loadItemsFinished, ELS_loanManager.loadFromXMLFile)
     FSCareerMissionInfo.saveToXMLFile = Utils.appendedFunction(FSCareerMissionInfo.saveToXMLFile, ELS_loanManager.saveToXMLFile)
     Mission00.loadAdditionalFilesFinished = Utils.appendedFunction(Mission00.loadAdditionalFilesFinished, ELS_loanManager.loadMapData)
-    --SavegameSettingsEvent.readStream = Utils.appendedFunction(SavegameSettingsEvent.readStream, ELS_loanManager.onReadStream)
-    --SavegameSettingsEvent.writeStream = Utils.appendedFunction(SavegameSettingsEvent.writeStream, ELS_loanManager.onWriteStream)
-    g_els_settingsMenuExtension:init()
 end
 
 init()

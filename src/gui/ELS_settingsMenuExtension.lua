@@ -1,16 +1,20 @@
--- Name: EAS_settingsMenuExtension
+-- Name: ELS_settingsMenuExtension
 -- Author: Chissel
 
-EAS_settingsMenuExtension = {}
-EAS_settingsMenuExtension.initSettingsMenuDone = false
+ELS_settingsMenuExtension = {}
+ELS_settingsMenuExtension.initSettingsMenuDone = false
 
-function EAS_settingsMenuExtension:init()
-    InGameMenuGameSettingsFrame.onFrameOpen = Utils.appendedFunction(InGameMenuGameSettingsFrame.onFrameOpen, EAS_settingsMenuExtension.onFrameOpen)
+local ELS_settingsMenuExtension_mt = Class(ELS_settingsMenuExtension)
+
+function ELS_settingsMenuExtension.new(customMt)
+	local self = {}
+	setmetatable(self, customMt or ELS_settingsMenuExtension_mt)
+	return self
 end
 
-function EAS_settingsMenuExtension:onFrameOpen()
+function ELS_settingsMenuExtension:onFrameOpen()
     if not self.initSettingsMenuDone then
-        local target = g_els_settingsMenuExtension
+        local target = ELS_settingsMenuExtension
 
         self.els_dynamicLoanInterest = self.checkHelperRefillFuel:clone()
         self.els_dynamicLoanInterest.target = target
@@ -38,49 +42,56 @@ function EAS_settingsMenuExtension:onFrameOpen()
         self.boxLayout:addElement(self.els_dynamicLoanInterestValue)
 
         self.els_dynamicLoanInterest:setTexts({g_i18n:getText("ui_on"), g_i18n:getText("ui_off")})
-        g_els_settingsMenuExtension.steps = g_els_loanManager.loanManagerProperties:getLoanInterestSteps()
-        self.els_dynamicLoanInterestValue:setTexts(g_els_settingsMenuExtension.steps)
+        g_els_settingsMenuExtension.els_steps = g_els_loanManager.loanManagerProperties:getLoanInterestSteps()
+        self.els_dynamicLoanInterestValue:setTexts(g_els_settingsMenuExtension.els_steps)
 
         g_els_settingsMenuExtension.els_dynamicLoanInterest = self.els_dynamicLoanInterest
         g_els_settingsMenuExtension.els_dynamicLoanInterestValue = self.els_dynamicLoanInterestValue
-        g_els_settingsMenuExtension:updateDynmaicLoanInterestState()
-        g_els_settingsMenuExtension:updateDynmaicLoanInterestValueState()
+
+        ELS_settingsMenuExtension.updateDynmaicLoanInterestState()
+        ELS_settingsMenuExtension.updateDynmaicLoanInterestValueState()
 
         self.initSettingsMenuDone = true
     else
-        g_els_settingsMenuExtension:updateDynmaicLoanInterestState()
-        g_els_settingsMenuExtension:updateDynmaicLoanInterestValueState()
+        ELS_settingsMenuExtension.updateDynmaicLoanInterestState()
+        ELS_settingsMenuExtension.updateDynmaicLoanInterestValueState()
     end
 end
 
-function EAS_settingsMenuExtension:updateDynmaicLoanInterestState()
+function ELS_settingsMenuExtension.updateDynmaicLoanInterestState()
     if g_els_loanManager.loanManagerProperties.dynamicLoanInterest then
-        self.els_dynamicLoanInterest:setState(1)
-        self.els_dynamicLoanInterestValue:setDisabled(true)
+        g_els_settingsMenuExtension.els_dynamicLoanInterest:setState(1)
+        g_els_settingsMenuExtension.els_dynamicLoanInterestValue:setDisabled(true)
     else
-        self.els_dynamicLoanInterest:setState(2)
-        self.els_dynamicLoanInterestValue:setDisabled(false)
+        g_els_settingsMenuExtension.els_dynamicLoanInterest:setState(2)
+        g_els_settingsMenuExtension.els_dynamicLoanInterestValue:setDisabled(false)
     end
 end
 
-function EAS_settingsMenuExtension:updateDynmaicLoanInterestValueState()
-    for index, value in pairs(self.steps) do
+function ELS_settingsMenuExtension.updateDynmaicLoanInterestValueState()
+    for index, value in pairs(g_els_settingsMenuExtension.els_steps) do
         if tonumber(value) == g_els_loanManager.loanManagerProperties.loanInterest then
-            self.els_dynamicLoanInterestValue:setState(index)
+            g_els_settingsMenuExtension.els_dynamicLoanInterestValue:setState(index)
         end
     end
 end
 
-
-function EAS_settingsMenuExtension:onDynamicLoanInterestChanged(state)
+function ELS_settingsMenuExtension:onDynamicLoanInterestChanged(state)
     g_els_loanManager:toggleDynamicLoanInterest()
-    self:updateDynmaicLoanInterestState()
+    ELS_settingsMenuExtension.updateDynmaicLoanInterestState()
 end
 
-function EAS_settingsMenuExtension:onDynamicLoanInterestValueChanged(state)
-    local loanInterestValue = tonumber(self.steps[state])
+function ELS_settingsMenuExtension:onDynamicLoanInterestValueChanged(state)
+    local loanInterestValue = tonumber(g_els_settingsMenuExtension.els_steps[state])
     g_els_loanManager:setLoanInterestValue(loanInterestValue)
-    self:updateDynmaicLoanInterestValueState()
+    ELS_settingsMenuExtension.updateDynmaicLoanInterestValueState()
 end
 
-g_els_settingsMenuExtension = EAS_settingsMenuExtension
+
+function init()
+    InGameMenuGameSettingsFrame.onFrameOpen = Utils.appendedFunction(InGameMenuGameSettingsFrame.onFrameOpen, ELS_settingsMenuExtension.onFrameOpen)
+end
+
+init()
+
+g_els_settingsMenuExtension = ELS_settingsMenuExtension.new()

@@ -4,8 +4,10 @@
 ELS_loan = {}
 local ELS_loan_mt = Class(ELS_loan, Object)
 
-function ELS_loan.new(isServer, isClient)
-    local self = Object.new(isServer, isClient, ELS_loan_mt)
+InitObjectClass(ELS_loan, "ELS_loan")
+
+function ELS_loan.new(isServer, isClient, customMt)
+    local self = Object.new(isServer, isClient, customMt or ELS_loan_mt)
 
 	self.loanDirtyFlag = self:getNextDirtyFlag()
 
@@ -75,7 +77,9 @@ function ELS_loan:readStream(streamId, connection)
     self.paidOff = streamReadBool(streamId)
     self.restAmount = streamReadInt32(streamId)
 
-    table.insert(g_els_loanManager.loans[self.farmId], self)
+    local farmLoans = g_els_loanManager.loans[self.farmId] or {}
+    table.insert(farmLoans, self)
+    g_els_loanManager.loans[self.farmId] = farmLoans
 end
 
 function ELS_loan:writeStream(streamId, connection)

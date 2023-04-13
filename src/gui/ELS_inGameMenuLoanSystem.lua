@@ -152,7 +152,7 @@ function ELS_inGameMenuLoanSystem:takeLoanCallback(success, amount, duration)
         local loan = ELS_loan.new(g_currentMission:getIsServer(), g_currentMission:getIsClient())
         loan:init(farm.farmId, amount, g_els_loanManager.loanManagerProperties.loanInterest, duration)
 
-        g_els_loanManager:sendOrDoAddLoan(loan)
+        g_els_loanManager:addLoan(loan)
 
         self:updateContent()
     end
@@ -178,7 +178,7 @@ end
 
 function ELS_inGameMenuLoanSystem:specialRedemptionPaymentCallback(success, amount)
     if success then
-        g_els_loanManager:sendOrDoSpecialRedemptionPayment(self.currentLoan, amount)
+        g_els_loanManager:specialRedemptionPayment(self.currentLoan, amount)
 
         self:updateContent()
     end
