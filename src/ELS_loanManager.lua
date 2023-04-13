@@ -75,14 +75,6 @@ function ELS_loanManager:currentLoans(farmId)
     return currentLoans
 end
 
-function ELS_loanManager:sendOrDoAddLoan(loan)
-    if g_currentMission:getIsServer() then
-        self:addLoan(loan)
-    else
-        g_client:getServerConnection():sendEvent(ELS_addLoanEvent.new(loan.farmId, loan.amount, loan.interest, loan.duration))
-    end
-end
-
 function ELS_loanManager:addLoan(loan)
     loan:register()
     local farmLoans = self.loans[loan.farmId] or {}
@@ -122,25 +114,6 @@ function ELS_loanManager:specialRedemptionPayment(loan, amount)
     loan:raiseActive()
 
     self:addRemoveMoney(-amount, loan.farmId)
-end
-
-function ELS_loanManager:sendOrDoSpecialRedemptionPayment(loan, amount)
-    if g_currentMission:getIsServer() then
-        self:specialRedemptionPayment(loan, amount)
-    else
-        g_client:getServerConnection():sendEvent(ELS_specialRedemptionPaymentEvent.new(loan.farmId, loan.id, amount))
-    end
-end
-
-function ELS_loanManager:excecuteSpecialRedemptionPayment(farmId, loanId, amount)
-    local farmLoans = self.loans[farmId]
-
-    for _, loan in pairs(farmLoans) do
-        if loan.id == loanId then
-            self:specialRedemptionPayment(loan, amount)
-            return
-        end
-    end
 end
 
 function ELS_loanManager:maxLoanAmountForFarm(farmId)

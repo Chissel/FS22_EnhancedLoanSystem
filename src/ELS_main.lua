@@ -11,8 +11,6 @@ source(g_currentModDirectory .. "src/gui/ELS_takeLoanDialog.lua")
 source(g_currentModDirectory .. "src/gui/ELS_specialRedemptionPaymentDialog.lua")
 source(g_currentModDirectory .. "src/gui/ELS_settingsMenuExtension.lua")
 source(g_currentModDirectory .. "src/events/ELS_addRemoveMoneyEvent.lua")
-source(g_currentModDirectory .. "src/events/ELS_addLoanEvent.lua")
-source(g_currentModDirectory .. "src/events/ELS_specialRedemptionPaymentEvent.lua")
 
 addModEventListener(ELS_loanManager)
 
