@@ -10,6 +10,7 @@ ELS_loanManagerProperties.minLoanInterest = 1.0
 ELS_loanManagerProperties.maxLoanInterest = 10.0
 ELS_loanManagerProperties.loanInterestSteps = 0.1
 ELS_loanManagerProperties.loanInterestStartValue = 3.5
+ELS_loanManagerProperties.farmlandMortgagePercentage = 0.6
 
 function ELS_loanManagerProperties.new(isServer, isClient, customMt)
     local self = Object.new(isServer, isClient, customMt or ELS_loanManagerProperties_mt)
