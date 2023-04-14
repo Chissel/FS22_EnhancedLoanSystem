@@ -26,7 +26,7 @@
         <text name="els_ui_takeLoanDurationInputText" text="Zeitraum (Jahre):"/>
         <text name="els_ui_takeLoanInterest" text="Zinsen"/>
         <text name="els_ui_takeLoanPeriodRate" text="Monatliche Rückzahlung"/>
-        <text name="els_ui_takeLoanTotalAmount" text="Rückzahlungsbetrag"/>
+        <text name="els_ui_takeLoanTotalAmount" text="Rückzahlungsbetrag mit Zinsen"/>
         <text name="els_ui_takeLoanButton" text="Kredit abschließen"/>
 
         <text name="els_ui_specialRedemptionPaymentText" text="Bitte gib den Betrag ein, den du zurückzahlen willst."/>

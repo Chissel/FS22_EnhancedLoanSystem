@@ -25,8 +25,8 @@
         <text name="els_ui_takeLoanAmountInputText" text="Amount"/>
         <text name="els_ui_takeLoanDurationInputText" text="Period (years):"/>
         <text name="els_ui_takeLoanInterest" text="Interest"/>
-        <text name="els_ui_takeLoanPeriodRate" text="Monthly Repayment"/>
-        <text name="els_ui_takeLoanTotalAmount" text="Repayment Amount"/>
+        <text name="els_ui_takeLoanPeriodRate" text="Monthly repayment"/>
+        <text name="els_ui_takeLoanTotalAmount" text="Repayment amount with interest"/>
         <text name="els_ui_takeLoanButton" text="Take loan"/>
 
         <text name="els_ui_specialRedemptionPaymentText" text="Please enter the amount you want to repay."/>
