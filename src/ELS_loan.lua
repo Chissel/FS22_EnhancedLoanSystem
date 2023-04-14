@@ -25,8 +25,24 @@ function ELS_loan:init(farmId, amount, interest, duration, paidOff)
 end
 
 function ELS_loan:calculateTotalAmount()
-    local periodRate = self:calculateAnnuity()
-    local totalAmount = periodRate * (self.duration * 12)
+    local annuity = self:calculateAnnuity()
+    local currentRestAmount = self.restAmount
+    local totalAmount = 0
+
+    while true do
+        local interestPortion = ((self.interest / 100) * currentRestAmount) / 12
+        local repaymentPortion = annuity - interestPortion
+
+        if repaymentPortion > currentRestAmount then
+            totalAmount = totalAmount + currentRestAmount + interestPortion
+            break
+        else
+            totalAmount = totalAmount + annuity
+        end
+
+        currentRestAmount = currentRestAmount - repaymentPortion
+    end
+
     return totalAmount
 end
 

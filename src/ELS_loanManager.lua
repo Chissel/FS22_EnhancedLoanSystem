@@ -103,19 +103,22 @@ function ELS_loanManager:addRemoveMoney(amount, farmId)
 end
 
 function ELS_loanManager:specialRedemptionPayment(loan, amount)
-    if amount >= loan.restAmount then
+    local value = amount
+
+    if value >= loan.restAmount then
+        value = loan.restAmount
         loan.restAmount = 0
         loan.restDuration = 0
         loan.paidOff = true
     else
-        loan.restAmount = loan.restAmount - amount
+        loan.restAmount = loan.restAmount - value
         loan.restDuration = math.ceil(loan.restAmount / loan:calculateAnnuity())
     end
 
     loan:raiseDirtyFlags(loan.loanDirtyFlag)
     loan:raiseActive()
 
-    self:addRemoveMoney(-amount, loan.farmId)
+    self:addRemoveMoney(-value, loan.farmId)
 end
 
 function ELS_loanManager:maxLoanAmountForFarm(farmId)

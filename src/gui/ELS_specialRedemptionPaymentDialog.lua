@@ -72,20 +72,17 @@ end
 function ELS_specialRedemptionPaymentDialog:onTextChanged(element, text)
     if text ~= "" then
         if tonumber(text) ~= nil then
-            local value = text
-
-            local currentValue = tonumber(value)
-            if currentValue > self.restAmount then
-                value = self.restAmount
-                element:setText(tostring(value))
-            end
+            local currentValue = tonumber(text)
 
             if currentValue > self.currentMoney then
-                value = self.currentMoney
-                element:setText(tostring(value))
+                currentValue = self.currentMoney
             end
 
-            local formattedValue = string.format("%.0f", value)
+            if currentValue > self.restAmount then
+                currentValue = self.restAmount
+            end
+
+            local formattedValue = string.format("%.0f", currentValue)
             element:setText(formattedValue)
 
             element.lastValidText = formattedValue
