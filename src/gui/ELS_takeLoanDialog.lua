@@ -34,7 +34,7 @@ function ELS_takeLoanDialog:onOpen()
 
     self:resetUI()
 
-    self.loanAmountInputText:setText(string.format("%s (Max. %s)", self.i18n:getText("els_ui_takeLoanAmountInputText"), string.format("%.0f", self.maxLoanAmount)))
+    self.loanAmountInputText:setText(string.format("%s (Max. %s):", self.i18n:getText("els_ui_takeLoanAmountInputText"), string.format("%.0f", self.maxLoanAmount)))
 
 	FocusManager:setFocus(self.loanAmountInput)
 end

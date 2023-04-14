@@ -16,12 +16,12 @@
     </Profile>
 
     <Profile name="ELS_headerPanel" extends="emptyPanel" with="anchorTopCenter">
-        <Value name="size" value="1300px 64px"/>
+        <Value name="size" value="1500px 64px"/>
         <Value name="position" value="0px 64px"/>
     </Profile>
 
     <Profile name="ELS_headerText" extends="textDefault">
-        <Value name="size" value="500px 64px" />
+        <Value name="size" value="600px 64px" />
         <Value name="position" value="0px 0px" />
         <Value name="textSize" value="31px"/>
         <Value name="textBold" value="false"/>
@@ -30,8 +30,8 @@
     </Profile>
 
     <Profile name="ELS_loanInterestText" extends="textDefault">
-        <Value name="size" value="800px 64px" />
-        <Value name="position" value="500px 0px" />
+        <Value name="size" value="900px 64px" />
+        <Value name="position" value="600px 0px" />
         <Value name="textSize" value="31px"/>
         <Value name="textBold" value="false"/>
         <Value name="textUpperCase" value="true"/>
@@ -40,7 +40,7 @@
     </Profile>
 
     <Profile name="ELS_headerBox" extends="emptyPanel" with="anchorTopCenter">
-        <Value name="size" value="1300px 50px"/>
+        <Value name="size" value="1500px 50px"/>
         <Value name="alignmentX" value="left"/>
         <Value name="alignmentY" value="middle"/>
         <Value name="imageColor" value="$preset_colorListHeaderBackground"/>
@@ -62,26 +62,26 @@
     </Profile>
 
     <Profile name="ELS_ingameMenuListBox" extends="emptyPanel" with="anchorTopCenter">
-        <Value name="size" value="1400px 756px"/>
+        <Value name="size" value="1600px 756px"/>
         <Value name="position" value="0" />
     </Profile>
 
     <Profile name="ELS_list" extends="ingameMenuContractsList" with="anchorTopCenter">
-        <Value name="size" value="1300px 693px"/>
+        <Value name="size" value="1500px 700px"/>
         <Value name="position" value="0px -60px"/>
     </Profile>
 
     <Profile name="ELS_listItem" extends="ingameMenuContractsListItem" with="anchorBottomLeft">
-        <Value name="size" value="1300px 40.77px"/>
+        <Value name="size" value="1500px 40.77px"/>
     </Profile>
 
     <Profile name="ELS_ingameMenuSlider" extends="verticalListSliderRightDocked">
-        <Value name="size" value="12px 693px" />
+        <Value name="size" value="12px 700px" />
         <Value name="position" value="0px -60px" />
     </Profile>
 
     <Profile name="ELS_ingameMenuSliderBar" extends="verticalListSliderBar">
-        <Value name="size" value="6px 685px" />
+        <Value name="size" value="6px 692px" />
     </Profile>
 
     <Profile name="ELS_rowCell" extends="baseReference">
@@ -95,21 +95,21 @@
 
     <!-- Take loan dialog -->
     <Profile name="ELS_takeLoanDialog" extends="dialogBg">
-        <Value name="size" value="750px 350px"/>
+        <Value name="size" value="800px 450px"/>
     </Profile>
 
     <Profile name="ELS_takeLoanText" extends="dialogText" with="anchorTopCenter">
-        <Value name="position" value="0px -20px"/>
-        <Value name="size" value="510px 20px"/>
+        <Value name="position" value="0px -30px"/>
+        <Value name="size" value="510px 25px"/>
         <Value name="textSize" value="20px"/>
-        <Value name="textWrapWidth" value="280px"/>
+        <Value name="textWrapWidth" value="400px"/>
     </Profile>
 
     <Profile name="ELS_takeLoanFlowLayout" extends="baseReference" with="anchorTopCenter">
         <Value name="alignmentX" value="middle"/>
         <Value name="alignmentY" value="middle"/>
         <Value name="size" value="350px 200px"/>
-        <Value name="position" value="0px -80px"/>
+        <Value name="position" value="0px -130px"/>
         <Value name="imageColor" value="$preset_colorTransparent"/>
     </Profile>
 
@@ -124,9 +124,10 @@
 
     <Profile name="ELS_takeLoanInfoTextShort" extends="textDefault">
         <Value name="position" value="0px 0px"/>
-        <Value name="size" value="100px 20px"/>
+        <Value name="size" value="350px 20px"/>
         <Value name="textSize" value="16px"/>
-        <Value name="textWrapWidth" value="100px"/>
+        <Value name="textWrapWidth" value="200px"/>
+        <Value name="textAlignment" value="center"/>
     </Profile>
 
     <Profile name="ELS_takeLoanInfoTextLong" extends="textDefault">
@@ -134,13 +135,14 @@
         <Value name="size" value="300px 20px"/>
         <Value name="textSize" value="16px"/>
         <Value name="textWrapWidth" value="300px"/>
+        <Value name="textAlignment" value="center"/>
     </Profile>
 
     <Profile name="ELS_takeLoanInputText" extends="textDefault">
         <Value name="position" value="0px 0px"/>
         <Value name="size" value="350px 20px"/>
         <Value name="textSize" value="16px"/>
-        <Value name="textWrapWidth" value="280px"/>
+        <Value name="textWrapWidth" value="350px"/>
     </Profile>
 
     <Profile name="ELS_takeLoanInput" extends="textInput">
@@ -160,19 +162,20 @@
         <Value name="size" value="750px 200px"/>
     </Profile>
 
-    <Profile name="ELS_specialRedemptionPaymentFlowLayout" extends="baseReference" with="anchorTopCenter">
-        <Value name="alignmentX" value="middle"/>
-        <Value name="alignmentY" value="middle"/>
-        <Value name="size" value="350px 150px"/>
-        <Value name="position" value="0px -40px"/>
-        <Value name="imageColor" value="$preset_colorTransparent"/>
+    <Profile name="ELS_specialRedemptionPaymentText" extends="dialogText">
+        <Value name="position" value="0px -20px"/>
+        <Value name="size" value="750px 20px"/>
+        <Value name="textSize" value="20px"/>
+        <Value name="textWrapWidth" value="300px"/>
+        <Value name="textAlignment" value="center"/>
     </Profile>
 
-    <Profile name="ELS_specialRedemptionPaymentText" extends="dialogText" with="anchorTopCenter">
+    <Profile name="ELS_specialRedemptionPaymentFlowLayout" extends="baseReference" with="anchorMiddleCenter">
+        <Value name="alignmentX" value="middle"/>
+        <Value name="alignmentY" value="middle"/>
+        <Value name="size" value="350px 100px"/>
         <Value name="position" value="0px -20px"/>
-        <Value name="size" value="510px 20px"/>
-        <Value name="textSize" value="20px"/>
-        <Value name="textWrapWidth" value="280px"/>
+        <Value name="imageColor" value="$preset_colorTransparent"/>
     </Profile>
 
     <Profile name="ELS_specialRedemptionPaymentRestAmount" extends="textDefault">

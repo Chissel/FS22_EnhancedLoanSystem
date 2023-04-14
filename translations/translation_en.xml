@@ -2,12 +2,12 @@
 <l10n>
     <texts>
         <!-- buttons -->
-        <text name="els_ui_takeLoan" text="Close Credit"/>
+        <text name="els_ui_takeLoan" text="Take Loan"/>
         <text name="els_ui_specialRedemptionPayment" text="Special Redemption"/>
 
         <text name="els_ui_acceptSpecialRedemptionPayment" text="Make Special Repayment"/>
 
-        <text name="els_ui_inGameMenuTitle" text="Credit System"/>
+        <text name="els_ui_inGameMenuTitle" text="Loan System"/>
         <text name="els_ui_inGameMenuLoanInterest" text="Current Loan Interest Rate"/>
         <text name="els_ui_loanAmount" text="Amount"/>
 
@@ -22,19 +22,20 @@
         <text name="els_ui_paidOffLoanSectionHeader" text="Paid-Off Loans"/>
 
         <text name="els_ui_takeLoanText" text="Please specify the amount and term of your loan."/>
-        <text name="els_ui_takeLoanAmountInputText" text="Amount:"/>
+        <text name="els_ui_takeLoanAmountInputText" text="Amount"/>
         <text name="els_ui_takeLoanDurationInputText" text="Period (years):"/>
         <text name="els_ui_takeLoanInterest" text="Interest"/>
         <text name="els_ui_takeLoanPeriodRate" text="Monthly Repayment"/>
         <text name="els_ui_takeLoanTotalAmount" text="Repayment Amount"/>
+        <text name="els_ui_takeLoanButton" text="Take loan"/>
 
         <text name="els_ui_specialRedemptionPaymentText" text="Please enter the amount you want to repay."/>
         <text name="els_ui_specialRedemptionPaymentRestAmount" text="Amount still to be paid"/>.
 
-        <text name="els_settingsMenu_sectionTitle" 							text="Advanced Credit System"/>
+        <text name="els_settingsMenu_sectionTitle" 							text="Enhanced Loan System"/>
         <text name="els_settingsMenu_dynamicLoanInterestTitle" 				text="Dynamic Loan Interest Rate"/>
         <text name="els_settingsMenu_dynamicLoanInterestDescription" 		text="The loan interest rate changes from month to month."/>
         <text name="els_settingsMenu_dynamicLoanInterestValueTitle" 		text="Current loan interest rate"/>.
-        <text name="els_settingsMenu_dynamicLoanInterestValueDescription" 	text="Here you can set the credit interest rate. For this, the dynamic loan interest rate must be turned off."/>
+        <text name="els_settingsMenu_dynamicLoanInterestValueDescription" 	text="Here you can set the loan interest rate. For this, the dynamic loan interest rate must be turned off."/>
     </texts>
 </l10n>

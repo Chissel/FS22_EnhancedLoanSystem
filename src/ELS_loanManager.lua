@@ -105,9 +105,11 @@ end
 function ELS_loanManager:specialRedemptionPayment(loan, amount)
     if amount >= loan.restAmount then
         loan.restAmount = 0
+        loan.restDuration = 0
         loan.paidOff = true
     else
         loan.restAmount = loan.restAmount - amount
+        loan.restDuration = math.ceil(loan.restAmount / loan:calculateAnnuity())
     end
 
     loan:raiseDirtyFlags(loan.loanDirtyFlag)

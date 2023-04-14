@@ -13,15 +13,16 @@
             <GuiElement type="textInput" profile="ELS_takeLoanInput" id="loanAmountInput" onEnterPressed="onEnterPressed" onTextChanged="onTextChanged" enterWhenClickOutside="false"/>
             <GuiElement type="text" profile="ELS_takeLoanInputText" text="$l10n_els_ui_takeLoanDurationInputText" id="loanDurationInput" />
             <GuiElement type="textInput" profile="ELS_takeLoanInputYear" id="loanDurationInput" onEnterPressed="onEnterPressed" onTextChanged="onTextChanged" enterWhenClickOutside="false"/>
+            <GuiElement type="text" profile="ELS_takeLoanInfoTextShort" text="$l10n_els_ui_takeLoanInterest" id="loanInterestField" />
+
             <GuiElement type="flowLayout" profile="ELS_takeLoanFlowLayoutHorizontal">
-                <GuiElement type="text" profile="ELS_takeLoanInfoTextShort" text="$l10n_els_ui_takeLoanInterest" id="loanInterestField" />
                 <GuiElement type="text" profile="ELS_takeLoanInfoTextLong" text="$l10n_els_ui_takeLoanPeriodRate" id="loanPeriodRateField" />
                 <GuiElement type="text" profile="ELS_takeLoanInfoTextLong" text="$l10n_els_ui_takeLoanTotalAmount" id="loanTotalAmountField" />
             </GuiElement>
         </GuiElement>
 
         <GuiElement type="flowLayout" profile="buttonBoxDialog" id="buttonsPC" >
-            <GuiElement type="button" profile="buttonOK" text="$l10n_els_ui_takeLoan" onClick="onClickOk" id="yesButton" />
+            <GuiElement type="button" profile="buttonOK" text="$l10n_els_ui_takeLoanButton" onClick="onClickOk" id="yesButton" />
             <GuiElement type="button" profile="buttonBack" text="$l10n_button_back" onClick="onClickCancel" id="backButton" />
         </GuiElement>
     </GuiElement>
