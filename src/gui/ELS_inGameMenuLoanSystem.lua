@@ -114,16 +114,19 @@ end
 function ELS_inGameMenuLoanSystem:updateButtons()
     local farm = g_farmManager:getFarmByUserId(g_currentMission.playerUserId)
     if farm.farmId == FarmManager.SPECTATOR_FARM_ID or not g_currentMission:getHasPlayerPermission(Farm.PERMISSION.MANAGE_RIGHTS) then
-        self.specialRedemptionPayment.disabled = true
         self.takeLoanButton.disabled = true
     else
         self.takeLoanButton.disabled = false
     end
 
-    if self.currentLoan ~= nil and not self.currentLoan.paidOff then
-        self.specialRedemptionPayment.disabled = false
-    else
+    if farm.farmId == FarmManager.SPECTATOR_FARM_ID or not g_currentMission:getHasPlayerPermission(Farm.PERMISSION.MANAGE_RIGHTS) then
         self.specialRedemptionPayment.disabled = true
+    else
+        if self.currentLoan ~= nil and not self.currentLoan.paidOff then
+            self.specialRedemptionPayment.disabled = false
+        else
+            self.specialRedemptionPayment.disabled = true
+        end
     end
 
     self:setMenuButtonInfoDirty()
