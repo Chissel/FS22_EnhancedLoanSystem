@@ -125,7 +125,7 @@ function ELS_loanManager:maxLoanAmountForFarm(farmId)
     local farm = g_farmManager:getFarmById(farmId)
 
     local vehicleAmount = self:calculateVehicleAmount(farmId)
-    local loanAmount = self:calculateLoanAmount(farmId)
+    local loanAmount = self:calculateLoanAmount(farmId) * 2
     local farmlandAmount = self:calculateFarmlandAmount(farmId) * self.loanManagerProperties.farmlandMortgagePercentage
 
     local totalAmount = farm.money + vehicleAmount + farmlandAmount - loanAmount
