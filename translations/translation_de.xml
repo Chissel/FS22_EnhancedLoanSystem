@@ -37,5 +37,7 @@
         <text name="els_settingsMenu_dynamicLoanInterestDescription"        text="Der Kreditzins verändert sich von Monat zu Monat."/>
         <text name="els_settingsMenu_dynamicLoanInterestValueTitle"         text="Aktueller Kreditzins"/>
         <text name="els_settingsMenu_dynamicLoanInterestValueDescription"   text="Hiermit kannst du den Kreditzins einstellen. Hierfür muss der dynamische Kreditzins ausgeschaltet sein."/>
+        <text name="els_settingsMenu_loanDurationValueTitle"                text="Maximale Kreditlaufzeit"/>
+        <text name="els_settingsMenu_loanDurationValueDescription"          text="Hiermit kannst du die maximale Kreditlaufzeit einstellen."/>
     </texts>
 </l10n>

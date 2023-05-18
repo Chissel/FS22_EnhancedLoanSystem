@@ -1,0 +1,1 @@
+"C:\Program Files\7-Zip\7z.exe" a -tzip "C:\Users\chris\OneDrive\Documents\My Games\FarmingSimulator2022\mods\FS22_EnhancedLoanSystem.zip" -x@FileDefinition.txt

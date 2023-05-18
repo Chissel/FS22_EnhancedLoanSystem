@@ -31,6 +31,12 @@ function ELS_loanManager:setLoanInterestValue(value)
     self.loanManagerProperties:raiseActive()
 end
 
+function ELS_loanManager:setMaxLoanDurationValue(value)
+    self.loanManagerProperties.maxLoanDuration = value
+    self.loanManagerProperties:raiseDirtyFlags(self.loanManagerProperties.propertiesDirtyFlag)
+    self.loanManagerProperties:raiseActive()
+end
+
 function ELS_loanManager:toggleDynamicLoanInterest()
     self.loanManagerProperties.dynamicLoanInterest = not self.loanManagerProperties.dynamicLoanInterest
     self.loanManagerProperties:raiseDirtyFlags(self.loanManagerProperties.propertiesDirtyFlag)

@@ -1,0 +1,6 @@
+*.cmd
+*.txt
+.git*
+*.jpg
+*.png
+screenshots

@@ -24,7 +24,7 @@ function ELS_takeLoanDialog.new(target, custom_mt, i18n)
 	self.callbackArgs = nil
     self.maxLoanAmount = 0
     self.loanInterest = 0
-
+    self.maxLoanDuration = 5
 
 	return self
 end
@@ -51,9 +51,10 @@ function ELS_takeLoanDialog:resetUI()
     self.loanTotalAmountField:setText(string.format("%s: %s", self.i18n:getText("els_ui_takeLoanTotalAmount"), "-"))
 end
 
-function ELS_takeLoanDialog:setAvailableProperties(maxLoanAmount, loanInterest)
+function ELS_takeLoanDialog:setAvailableProperties(maxLoanAmount, loanInterest, maxLoanDuration)
     self.maxLoanAmount = math.max(maxLoanAmount, 0)
     self.loanInterest = loanInterest
+    self.maxLoanDuration = maxLoanDuration
 end
 
 function ELS_takeLoanDialog:setCallback(callbackFunc, target)
@@ -89,6 +90,12 @@ function ELS_takeLoanDialog:onTextChanged(element, text)
                 local currentValue = tonumber(value)
                 if currentValue > self.maxLoanAmount then
                     value = self.maxLoanAmount
+                    element:setText(tostring(value))
+                end
+            elseif element.id == "loanDurationInput" then
+                local currentValue = tonumber(value)
+                if currentValue > self.maxLoanDuration then
+                    value = self.maxLoanDuration
                     element:setText(tostring(value))
                 end
             end

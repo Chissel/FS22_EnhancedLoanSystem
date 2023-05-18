@@ -146,7 +146,7 @@ end
 
 function ELS_inGameMenuLoanSystem:onTakeLoanButton()
     local farm = g_farmManager:getFarmByUserId(g_currentMission.playerUserId)
-    self:showTakeLoanDialog({callback=self.takeLoanCallback, target=self, maxLoanAmount=g_els_loanManager:maxLoanAmountForFarm(farm.farmId), loanInterest=g_els_loanManager.loanManagerProperties.loanInterest})
+    self:showTakeLoanDialog({callback=self.takeLoanCallback, target=self, maxLoanAmount=g_els_loanManager:maxLoanAmountForFarm(farm.farmId), loanInterest=g_els_loanManager.loanManagerProperties.loanInterest, maxLoanDuration=g_els_loanManager.loanManagerProperties.maxLoanDuration})
 end
 
 function ELS_inGameMenuLoanSystem:showTakeLoanDialog(args)
@@ -156,7 +156,7 @@ function ELS_inGameMenuLoanSystem:showTakeLoanDialog(args)
         local target = dialog.target
 
         target:setCallback(args.callback, args.target)
-        target:setAvailableProperties(args.maxLoanAmount, args.loanInterest)
+        target:setAvailableProperties(args.maxLoanAmount, args.loanInterest, args.maxLoanDuration)
 
         g_gui:showDialog("ELS_takeLoanDialog")
     end

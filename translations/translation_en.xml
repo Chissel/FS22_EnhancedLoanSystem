@@ -37,5 +37,7 @@
         <text name="els_settingsMenu_dynamicLoanInterestDescription" 		text="The loan interest rate changes from month to month."/>
         <text name="els_settingsMenu_dynamicLoanInterestValueTitle" 		text="Current loan interest rate"/>.
         <text name="els_settingsMenu_dynamicLoanInterestValueDescription" 	text="Here you can set the loan interest rate. For this, the dynamic loan interest rate must be turned off."/>
+        <text name="els_settingsMenu_loanDurationValueTitle"                text="Maximum loan duration"/>.
+        <text name="els_settingsMenu_loanDurationValueDescription"          text="Allows you to set the maximum loan duration."/>
     </texts>
 </l10n>

@@ -26,6 +26,14 @@ function ELS_settingsMenuExtension:onFrameOpen()
     self.els_dynamicLoanInterestValue.elements[4]:setText(g_i18n:getText("els_settingsMenu_dynamicLoanInterestValueTitle"))
     self.els_dynamicLoanInterestValue.elements[6]:setText(g_i18n:getText("els_settingsMenu_dynamicLoanInterestValueDescription"))
 
+    self.els_loanDurationValue = self.checkHelperRefillFuel:clone()
+    self.els_loanDurationValue.target = target
+    self.els_loanDurationValue.id = "els_loanDurationValue"
+    self.els_loanDurationValue:setCallback("onClickCallback", "onLoanDurationValueChanged")
+
+    self.els_loanDurationValue.elements[4]:setText(g_i18n:getText("els_settingsMenu_loanDurationValueTitle"))
+    self.els_loanDurationValue.elements[6]:setText(g_i18n:getText("els_settingsMenu_loanDurationValueDescription"))
+
     local title = TextElement.new()
     title:applyProfile("settingsMenuSubtitle", true)
     title:setText(g_i18n:getText("els_settingsMenu_sectionTitle"))
@@ -33,10 +41,14 @@ function ELS_settingsMenuExtension:onFrameOpen()
     self.boxLayout:addElement(title)
     self.boxLayout:addElement(self.els_dynamicLoanInterest)
     self.boxLayout:addElement(self.els_dynamicLoanInterestValue)
+    self.boxLayout:addElement(self.els_loanDurationValue)
 
     self.els_dynamicLoanInterest:setTexts({g_i18n:getText("ui_on"), g_i18n:getText("ui_off")})
     ELS_settingsMenuExtension.els_steps = g_els_loanManager.loanManagerProperties:getLoanInterestSteps()
     self.els_dynamicLoanInterestValue:setTexts(ELS_settingsMenuExtension.els_steps)
+
+    ELS_settingsMenuExtension.els_durationSteps = g_els_loanManager.loanManagerProperties:getLoanDurationSteps()
+    self.els_loanDurationValue:setTexts(ELS_settingsMenuExtension.els_durationSteps)
 
     self.els_initSettingsMenuDone = true
     ELS_settingsMenuExtension:updateELSSettings(g_gui.currentGui.target.currentPage)
@@ -68,6 +80,12 @@ function ELS_settingsMenuExtension:updateELSSettings(currentPage)
             currentPage.els_dynamicLoanInterestValue:setState(index)
         end
     end
+
+    for index, value in pairs(ELS_settingsMenuExtension.els_durationSteps) do
+        if tonumber(value) == g_els_loanManager.loanManagerProperties.maxLoanDuration then
+            currentPage.els_loanDurationValue:setState(index)
+        end
+    end
 end
 
 function ELS_settingsMenuExtension:onDynamicLoanInterestChanged(state)
@@ -81,6 +99,11 @@ function ELS_settingsMenuExtension:onDynamicLoanInterestValueChanged(state)
     ELS_settingsMenuExtension:updateELSSettings(g_gui.currentGui.target.currentPage)
 end
 
+function ELS_settingsMenuExtension:onLoanDurationValueChanged(state)
+    local loanDurationValue = tonumber(ELS_settingsMenuExtension.els_durationSteps[state])
+    g_els_loanManager:setMaxLoanDurationValue(loanDurationValue)
+    ELS_settingsMenuExtension:updateELSSettings(g_gui.currentGui.target.currentPage)
+end
 
 function init()
     InGameMenuGameSettingsFrame.updateGameSettings = Utils.appendedFunction(InGameMenuGameSettingsFrame.updateGameSettings, ELS_settingsMenuExtension.updateGameSettings)
