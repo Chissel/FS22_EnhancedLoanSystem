@@ -81,6 +81,20 @@ function ELS_loanManager:currentLoans(farmId)
     return currentLoans
 end
 
+function ELS_loanManager:hasOperatingLoan(farmId)
+    local allFarmLoans = self.loans[farmId] or {}
+
+    for _, loan in pairs(allFarmLoans) do
+        if not loan.paidOff then
+            if loan.operatingLoan then
+                return true
+            end
+        end
+    end
+
+    return false
+end
+
 function ELS_loanManager:addLoan(loan)
     loan:register()
     local farmLoans = self.loans[loan.farmId] or {}
@@ -131,12 +145,25 @@ function ELS_loanManager:maxLoanAmountForFarm(farmId)
     local farm = g_farmManager:getFarmById(farmId)
 
     local vehicleAmount = self:calculateVehicleAmount(farmId)
-    local loanAmount = self:calculateLoanAmount(farmId) * 2
+    local loanAmount = self:calculateLoanAmount(farmId)
     local farmlandAmount = self:calculateFarmlandAmount(farmId) * self.loanManagerProperties.farmlandMortgagePercentage
 
     local totalAmount = farm.money + vehicleAmount + farmlandAmount - loanAmount
     return totalAmount
 end
+
+
+function ELS_loanManager:maxOperatingLoanAmountForFarm(farmId)
+    local farm = g_farmManager:getFarmById(farmId)
+
+    local vehicleAmount = self:calculateVehicleAmount(farmId)
+    --local loanAmount = self:calculateLoanAmount(farmId)
+    local farmlandAmount = self:calculateFarmlandAmount(farmId) * self.loanManagerProperties.farmlandMortgagePercentage
+
+    local totalAmount = math.max((vehicleAmount + farmlandAmount)*0.15, 30000)
+    return totalAmount
+end
+
 
 function ELS_loanManager:calculateVehicleAmount(farmId)
 	local amount = 0
@@ -224,6 +251,20 @@ function ELS_loanManager:collectLoanRateForFarm(farmId, loans)
             local annuity = loan:calculateAnnuity()
             local interestPortion = loan:calculateInterestPortion()
             local repaymentPortion = annuity - interestPortion
+
+            --operating load: collect only interest
+            if loan.operatingLoan
+            then
+                annuity = interestPortion
+                repaymentPortion = 0
+
+                --last month? ->repayment in full
+                if loan.restDuration == 1
+                then
+                    repaymentPortion = loan.restAmount + 1
+                    annuity = repaymentPortion + interestPortion
+                end
+            end
 
             loan.restDuration = loan.restDuration - 1
 

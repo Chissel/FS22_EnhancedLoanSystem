@@ -3,6 +3,7 @@
     <texts>
         <!-- Buttons -->
         <text name="els_ui_takeLoan" text="Kredit aufnehmen"/>
+        <text name="els_ui_takeOperatingLoan" text="Kurzfristkredit"/>
         <text name="els_ui_specialRedemptionPayment" text="Sondertilgung"/>
 
         <text name="els_ui_acceptSpecialRedemptionPayment" text="Sondertilgung durchführen"/>
@@ -28,6 +29,9 @@
         <text name="els_ui_takeLoanPeriodRate" text="Monatliche Rückzahlung"/>
         <text name="els_ui_takeLoanTotalAmount" text="Rückzahlungsbetrag mit Zinsen"/>
         <text name="els_ui_takeLoanButton" text="Kredit abschließen"/>
+        <text name="els_ui_takeOperatingLoanButton" text="Kurzfristkredit"/>
+        <text name="els_ui_takeOperatingLoanDurationInputText" text="Überbrückungszeitraum in Monaten (max 12):"/>
+        <text name="els_ui_takeOperatingLoanText" text="Kurzfristkredit: Bedingungen"/>
 
         <text name="els_ui_specialRedemptionPaymentText" text="Bitte gib den Betrag ein, den du zurückzahlen willst."/>
         <text name="els_ui_specialRedemptionPaymentRestAmount" text="Noch zu zahlender Betrag"/>

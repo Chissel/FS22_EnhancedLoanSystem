@@ -3,6 +3,7 @@
     <texts>
         <!-- buttons -->
         <text name="els_ui_takeLoan" text="Take Loan"/>
+        <text name="els_ui_takeOperatingLoan" text="Operating loan"/>
         <text name="els_ui_specialRedemptionPayment" text="Special Redemption"/>
 
         <text name="els_ui_acceptSpecialRedemptionPayment" text="Make Special Repayment"/>
@@ -28,6 +29,10 @@
         <text name="els_ui_takeLoanPeriodRate" text="Monthly repayment"/>
         <text name="els_ui_takeLoanTotalAmount" text="Repayment amount with interest"/>
         <text name="els_ui_takeLoanButton" text="Take loan"/>
+        <text name="els_ui_takeOperatingLoanButton" text="Operating loan"/>
+        <text name="els_ui_takeOperatingLoanDurationInputText" text="Months to bridge with short-term load (max 12):"/>
+        <text name="els_ui_takeOperatingLoanText" text="Operating loan: terms"/>
+
 
         <text name="els_ui_specialRedemptionPaymentText" text="Please enter the amount you want to repay."/>
         <text name="els_ui_specialRedemptionPaymentRestAmount" text="Amount still to be paid"/>.
