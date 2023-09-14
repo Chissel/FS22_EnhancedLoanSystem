@@ -28,6 +28,9 @@ function loadedMission()
 end
 
 function onStartMission()
+    MoneyType.LOAN.title = "ui_loan"
+    FinanceStats.statNamesI18n[MoneyType.LOAN.statistic] = g_i18n:getText("els_statistic_loan")
+
     if g_currentMission:getIsServer() then
         convertIngameLoans()
     end
@@ -111,6 +114,9 @@ function fixInGameMenu(frame, pageName, uvs, position, predicateFunc)
 end
 
 function init()
+    table.insert(FinanceStats.statNames, MoneyType.LOAN.statistic)
+    FinanceStats.statNameToIndex[MoneyType.LOAN.statistic] = #FinanceStats.statNames
+
     Mission00.loadMission00Finished = Utils.appendedFunction(Mission00.loadMission00Finished, loadedMission)
     Mission00.onStartMission = Utils.appendedFunction(Mission00.onStartMission, onStartMission)
     Mission00.loadItemsFinished = Utils.appendedFunction(Mission00.loadItemsFinished, ELS_loanManager.loadFromXMLFile)

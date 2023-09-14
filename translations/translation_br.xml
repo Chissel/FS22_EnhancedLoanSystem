@@ -37,5 +37,7 @@
         <text name="els_settingsMenu_dynamicLoanInterestDescription" 		text="A taxa de juros do empréstimo muda mês a mês."/>
         <text name="els_settingsMenu_dynamicLoanInterestValueTitle" 		text="Taxa de juros atual do empréstimo"/>.
         <text name="els_settingsMenu_dynamicLoanInterestValueDescription" 	text="Aqui você pode definir a taxa de juros do empréstimo. Para isso, a taxa de juros de empréstimo dinâmica deve ser desativada."/>
+
+        <text name="els_statistic_loan"          text="Empréstimos"/>
     </texts>
 </l10n>
