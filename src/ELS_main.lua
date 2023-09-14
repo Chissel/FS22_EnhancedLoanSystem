@@ -11,6 +11,7 @@ source(g_currentModDirectory .. "src/gui/ELS_takeLoanDialog.lua")
 source(g_currentModDirectory .. "src/gui/ELS_specialRedemptionPaymentDialog.lua")
 source(g_currentModDirectory .. "src/gui/ELS_settingsMenuExtension.lua")
 source(g_currentModDirectory .. "src/events/ELS_addRemoveMoneyEvent.lua")
+source(g_currentModDirectory .. "src/ELS_statisticNamesFix.lua")
 
 addModEventListener(ELS_loanManager)
 
@@ -28,9 +29,6 @@ function loadedMission()
 end
 
 function onStartMission()
-    MoneyType.LOAN.title = "ui_loan"
-    FinanceStats.statNamesI18n[MoneyType.LOAN.statistic] = g_i18n:getText("els_statistic_loan")
-
     if g_currentMission:getIsServer() then
         convertIngameLoans()
     end
@@ -116,6 +114,7 @@ end
 function init()
     table.insert(FinanceStats.statNames, MoneyType.LOAN.statistic)
     FinanceStats.statNameToIndex[MoneyType.LOAN.statistic] = #FinanceStats.statNames
+    MoneyType.LOAN.title = "ui_loan"
 
     Mission00.loadMission00Finished = Utils.appendedFunction(Mission00.loadMission00Finished, loadedMission)
     Mission00.onStartMission = Utils.appendedFunction(Mission00.onStartMission, onStartMission)
