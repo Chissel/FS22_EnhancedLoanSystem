@@ -103,7 +103,7 @@ function ELS_loanManager:addRemoveMoney(amount, farmId, moneyType)
             farm:changeBalance(amount, moneyType)
         end
     else
-        g_client:getServerConnection():sendEvent(ELS_addRemoveMoneyEvent.new(amount, farmId))
+        g_client:getServerConnection():sendEvent(ELS_addRemoveMoneyEvent.new(amount, farmId, moneyType))
     end
 end
 
