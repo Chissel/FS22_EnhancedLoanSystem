@@ -41,5 +41,6 @@
         <text name="els_settingsMenu_loanDurationValueDescription"          text="Allows you to set the maximum loan duration."/>
 
         <text name="els_statistic_loan"          text="Loans"/>
+        <text name="finance_loan"          		text="Loan"/>
     </texts>
 </l10n>

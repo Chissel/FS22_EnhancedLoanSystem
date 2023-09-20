@@ -40,6 +40,7 @@
         <text name="els_settingsMenu_loanDurationValueTitle"                text="Maximale Kreditlaufzeit"/>
         <text name="els_settingsMenu_loanDurationValueDescription"          text="Hiermit kannst du die maximale Kreditlaufzeit einstellen."/>
 
-        <text name="els_statistic_loan"          text="Kredite"/>
+        <text name="els_statistic_loan"         text="Kredite"/>
+        <text name="finance_loan"          		text="Kredit"/>
     </texts>
 </l10n>
