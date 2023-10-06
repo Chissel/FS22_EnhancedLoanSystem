@@ -101,24 +101,23 @@ function ELS_loanManager:addLoan(loan)
     table.insert(farmLoans, loan)
     self.loans[loan.farmId] = farmLoans
 
-    self:addRemoveMoney(loan.amount, loan.farmId)
+    self:addRemoveMoney(loan.amount, loan.farmId, MoneyType.LOAN)
 end
 
-function ELS_loanManager:addRemoveMoney(amount, farmId)
+function ELS_loanManager:addRemoveMoney(amount, farmId, moneyType)
+    if moneyType == nil then
+        moneyType = MoneyType.LOAN
+        Logging.warning("No MoneyType given. Use LOAN as default.")
+    end
+
     if g_currentMission:getIsServer() then
-        local moneyType = MoneyType.LOAN
-
-        if amount < 0 then
-            moneyType = MoneyType.LOAN_INTEREST
-        end
-
         g_currentMission:addMoneyChange(amount, farmId, moneyType, true)
         local farm = g_farmManager:getFarmById(farmId)
         if farm ~= nil then
             farm:changeBalance(amount, moneyType)
         end
     else
-        g_client:getServerConnection():sendEvent(ELS_addRemoveMoneyEvent.new(amount, farmId))
+        g_client:getServerConnection():sendEvent(ELS_addRemoveMoneyEvent.new(amount, farmId, moneyType))
     end
 end
 
@@ -138,7 +137,7 @@ function ELS_loanManager:specialRedemptionPayment(loan, amount)
     loan:raiseDirtyFlags(loan.loanDirtyFlag)
     loan:raiseActive()
 
-    self:addRemoveMoney(-value, loan.farmId)
+    self:addRemoveMoney(-value, loan.farmId, MoneyType.LOAN)
 end
 
 function ELS_loanManager:maxLoanAmountForFarm(farmId)
@@ -270,6 +269,7 @@ function ELS_loanManager:collectLoanRateForFarm(farmId, loans)
 
             if repaymentPortion > loan.restAmount then
                 annuity = loan.restAmount + interestPortion
+                repaymentPortion = loan.restAmount
                 loan.restAmount = 0
                 loan.restDuration = 0
                 loan.paidOff = true
@@ -280,7 +280,8 @@ function ELS_loanManager:collectLoanRateForFarm(farmId, loans)
             loan:raiseDirtyFlags(loan.loanDirtyFlag)
             loan:raiseActive()
 
-            self:addRemoveMoney(-annuity, farmId)
+            self:addRemoveMoney(-repaymentPortion, farmId, MoneyType.LOAN)
+            self:addRemoveMoney(-interestPortion, farmId, MoneyType.LOAN_INTEREST)
         end
     end
 end

@@ -43,5 +43,8 @@
         <text name="els_settingsMenu_dynamicLoanInterestValueDescription"   text="Hiermit kannst du den Kreditzins einstellen. Hierfür muss der dynamische Kreditzins ausgeschaltet sein."/>
         <text name="els_settingsMenu_loanDurationValueTitle"                text="Maximale Kreditlaufzeit"/>
         <text name="els_settingsMenu_loanDurationValueDescription"          text="Hiermit kannst du die maximale Kreditlaufzeit einstellen."/>
+
+        <text name="els_statistic_loan"         text="Kredite"/>
+        <text name="finance_loan"          		text="Kredit"/>
     </texts>
 </l10n>

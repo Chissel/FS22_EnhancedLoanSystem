@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+    <texts>
+        <!-- buttons -->
+        <text name="els_ui_takeLoan" text="Pegar Empréstimo"/>
+        <text name="els_ui_specialRedemptionPayment" text="Pagamento de Amortização"/>
+
+        <text name="els_ui_acceptSpecialRedemptionPayment" text="Fazer Pagamento de Amortização"/>
+
+        <text name="els_ui_inGameMenuTitle" text="Sistema de empréstimo"/>
+        <text name="els_ui_inGameMenuLoanInterest" text="Taxa de juros atual do empréstimo"/>
+        <text name="els_ui_loanAmount" text="Quantia"/>
+
+        <text name="els_ui_header_amount" text="Quantia"/>
+        <text name="els_ui_header_interest" text="Interesse"/>
+        <text name="els_ui_header_periodRate" text="Amortização mensal"/>
+        <text name="els_ui_header_duration" text="Período (meses)"/>
+        <text name="els_ui_header_restDuration" text="Prazo restante (meses)"/>
+        <text name="els_ui_header_restAmount" text="Montante restante"/>
+
+        <text name="els_ui_currentLoanSectionHeader" text="Empréstimos atuais"/>
+        <text name="els_ui_paidOffLoanSectionHeader" text="Empréstimos quitados"/>
+
+        <text name="els_ui_takeLoanText" text="Por favor, especifique o valor e o prazo do seu empréstimo."/>
+        <text name="els_ui_takeLoanAmountInputText" text="Quantia"/>
+        <text name="els_ui_takeLoanDurationInputText" text="Período (anos):"/>
+        <text name="els_ui_takeLoanInterest" text="Interesse"/>
+        <text name="els_ui_takeLoanPeriodRate" text="Pagamento mensal"/>
+        <text name="els_ui_takeLoanTotalAmount" text="Valor do pagamento com juros"/>
+        <text name="els_ui_takeLoanButton" text="Pegar empréstimo"/>
+
+        <text name="els_ui_specialRedemptionPaymentText" text="Por favor, insira a quantia que você deseja pagar."/>
+        <text name="els_ui_specialRedemptionPaymentRestAmount" text="Valor ainda a ser pago"/>.
+
+        <text name="els_settingsMenu_sectionTitle" 							text="Sistema de empréstimo aprimorado"/>
+        <text name="els_settingsMenu_dynamicLoanInterestTitle" 				text="Taxa de juros de empréstimo dinâmico"/>
+        <text name="els_settingsMenu_dynamicLoanInterestDescription" 		text="A taxa de juros do empréstimo muda mês a mês."/>
+        <text name="els_settingsMenu_dynamicLoanInterestValueTitle" 		text="Taxa de juros atual do empréstimo"/>.
+        <text name="els_settingsMenu_dynamicLoanInterestValueDescription" 	text="Aqui você pode definir a taxa de juros do empréstimo. Para isso, a taxa de juros de empréstimo dinâmica deve ser desativada."/>
+
+        <text name="els_statistic_loan"          text="Empréstimos"/>
+        <text name="finance_loan"          		text="Empréstimo"/>
+    </texts>
+</l10n>
