@@ -15,6 +15,7 @@ ELS_loanManagerProperties.loanDurationStartValue = 20
 ELS_loanManagerProperties.loanDurationSteps = 5
 ELS_loanManagerProperties.minLoanDurationStep = 5
 ELS_loanManagerProperties.maxLoanDurationStep = 50
+ELS_loanManagerProperties.operatingLoanInterestFactor = 1.75
 
 function ELS_loanManagerProperties.new(isServer, isClient, customMt)
     local self = Object.new(isServer, isClient, customMt or ELS_loanManagerProperties_mt)

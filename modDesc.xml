@@ -23,6 +23,9 @@ Changelog 1.1.1.0:
 
 Changelog 1.1.0.0:
 - Feature: It is now possible to set the maximum duration of a loan
+
+Changelog 1.1.0.1:
+- Feature: you can always take one (1) short-term operating loan, in addition to the long-term annuity loans. The short-term operating loan is to bridge short-term gaps in solvency only. Thus it is limited in amount, limited to max 12 months duration, has higher interest rate, and must be paid back in full at the end of the duration (interest payments occur monthly). 
 ]]>
 </en>
 <de>
@@ -41,6 +44,10 @@ Changelog 1.1.1.0:
 
 Changelog 1.1.0.0:
 - Feature: Es kann nun die maximale Laufzeit eines Kredites eingestellt werden
+
+Changelog 1.1.0.1:
+- Feature: man kann immer einen (1) zusätzlichen Kurzfristkredit aufnehmen, zusätzlich zu den eher langfrist Annuitätendarlehen. Der Kurzfristkredit dient zur Überbrücking kurzfristiger liquiditätsengpässe. Er ist daher limitiert in der Höhe, begrenzt auf eine Laufzeit von max 12 Monaten, hat einen höhere Zinssatz, und muss endfällig zurückbezhalt werden (Zinszahlungen sind monatlich).
+
 ]]>
 </de>
 </description>
