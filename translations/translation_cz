@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<l10n>
+    <texts>
+        <!-- buttons -->
+        <text name="els_ui_takeLoan" text="Vzít půjčku"/>
+        <text name="els_ui_specialRedemptionPayment" text="Předčasná splátka"/>
+
+        <text name="els_ui_acceptSpecialRedemptionPayment" text="Provést předčasnou splátku"/>
+
+        <text name="els_ui_inGameMenuTitle" text="Systém půjček"/>
+        <text name="els_ui_inGameMenuLoanInterest" text="Aktuální úroková sazba půjčky"/>
+        <text name="els_ui_loanAmount" text="Částka"/>
+
+        <text name="els_ui_header_amount" text="Částka"/>
+        <text name="els_ui_header_interest" text="Úrok"/>
+        <text name="els_ui_header_periodRate" text="Měsíční splátka"/>
+        <text name="els_ui_header_duration" text="Doba splátek (v měsících)"/>
+        <text name="els_ui_header_restDuration" text="Zbývající doba (v měsících)"/>
+        <text name="els_ui_header_restAmount" text="Zbývající částka"/>
+
+        <text name="els_ui_currentLoanSectionHeader" text="Aktuální půjčky"/>
+        <text name="els_ui_paidOffLoanSectionHeader" text="Splacené půjčky"/>
+
+        <text name="els_ui_takeLoanText" text="Uveďte prosím výši a dobu splatnosti půjčky."/>
+        <text name="els_ui_takeLoanAmountInputText" text="Částka"/>
+        <text name="els_ui_takeLoanDurationInputText" text="Doba (v letech):"/>
+        <text name="els_ui_takeLoanInterest" text="Úrok"/>
+        <text name="els_ui_takeLoanPeriodRate" text="Měsíční splátka"/>
+        <text name="els_ui_takeLoanTotalAmount" text="Výše splátky s úroky"/>
+        <text name="els_ui_takeLoanButton" text="Vzít půjčku"/>
+
+        <text name="els_ui_specialRedemptionPaymentText" text="Zadejte částku, kterou chcete splatit."/>
+        <text name="els_ui_specialRedemptionPaymentRestAmount" text="Částka, která má být ještě splacena"/>.
+
+        <text name="els_settingsMenu_sectionTitle" 							text="Vylepšený systém půjček"/>
+        <text name="els_settingsMenu_dynamicLoanInterestTitle" 				text="Dynamická úroková sazba půjčky"/>
+        <text name="els_settingsMenu_dynamicLoanInterestDescription" 		text="Úroková sazba půjčky se mění z měsíce na měsíc."/>
+        <text name="els_settingsMenu_dynamicLoanInterestValueTitle" 		text="Aktuální úroková sazba půjčky"/>.
+        <text name="els_settingsMenu_dynamicLoanInterestValueDescription" 	text="Zde můžete nastavit úrokovou sazbu půjčky. K tomu je třeba vypnout dynamickou úrokovou sazbu půjčky."/>
+        <text name="els_settingsMenu_loanDurationValueTitle"                text="Maximální doba trvání půjčky"/>.
+        <text name="els_settingsMenu_loanDurationValueDescription"          text="Umožňuje nastavit maximální dobu trvání půjčky."/>
+		
+        <text name="els_statistic_loan"          text="Půjčky"/>
+        <text name="finance_loan"          		text="Půjčka"/>
+    </texts>
+</l10n>
