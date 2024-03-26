@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <modDesc descVersion="77">
     <author>Chissel</author>
-    <version>1.1.1.0</version>
+    <version>1.2.0.0</version>
     <title>
         <en>Enhanced Loan System</en>
         <de>Erweitertes Kredit System</de>
@@ -17,6 +17,9 @@ To make this a bit more realistic the loan rate can go up, down or stay the same
 
 How does an annuity loan work? Here is a brief explanation:
 An annuity loan has an annuity, the monthly installment, and a loan interest rate. This annuity is made up of the repayment amount and the interest amount. The interest amount is calculated by multiplying the loan interest rate by the remaining amount of the loan. As a result, the interest amount keeps decreasing and the repayment amount keeps increasing.
+
+Changelog 1.2.0.0:
+- Bugfix: Newly created farms in multiplayer no longer have standard credits
 
 Changelog 1.1.1.0:
 - Bugfix: Changes to the credit are correctly displayed in the statistics
@@ -35,6 +38,9 @@ Um dies etwas realistischer zu gestalten kann der Kreditzins jeden Monat steigen
 
 Wie funktioniert ein Annuitätendarlehn? Hier eine kurze Erklärung:
 Ein Annuitätendarlehn besitzt eine Annuität, die monatliche Rate, und einem Kreditzins. Diese Annuität setzt sich aus dem Tilgungsbetrag und dem Zinsbetrag zusammen. Der Zinsbetrag wird berechnet durch den Kreditzins multipliziert mit dem Restbetrag des Kredites. Dadurch sinkt der Zinsbetrag immer weiter und der Tilgungsbetrag steigt.
+
+Changelog 1.2.0.0:
+- Bugfix: Neu erstellte Höfe im Multiplayer haben keine Standardkredite mehr
 
 Changelog 1.1.1.0:
 - Bugfix: Änderungen am Kredit werden korrekt in der Statistik angezeigt

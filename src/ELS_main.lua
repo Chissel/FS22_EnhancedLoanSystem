@@ -52,6 +52,12 @@ function convertIngameLoans()
     end
 end
 
+function convertIngameLoansOnCreate(self, superFunc, name, color, password, farmId)
+    local returnValue = superFunc(self, name, color, password, farmId)
+    convertIngameLoans()
+    return returnValue
+end
+
 function hasPlayerLoanPermission()
     return false
 end
@@ -122,6 +128,7 @@ function init()
     FSCareerMissionInfo.saveToXMLFile = Utils.appendedFunction(FSCareerMissionInfo.saveToXMLFile, ELS_loanManager.saveToXMLFile)
     Mission00.loadAdditionalFilesFinished = Utils.appendedFunction(Mission00.loadAdditionalFilesFinished, ELS_loanManager.loadMapData)
     InGameMenuFinancesFrame.hasPlayerLoanPermission = Utils.appendedFunction(InGameMenuFinancesFrame.hasPlayerLoanPermission, hasPlayerLoanPermission)
+    FarmManager.createFarm = Utils.overwrittenFunction(FarmManager.createFarm, convertIngameLoansOnCreate)
 end
 
 init()
