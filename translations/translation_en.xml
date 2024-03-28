@@ -29,7 +29,7 @@
         <text name="els_ui_takeLoanPeriodRate" text="Monthly repayment"/>
         <text name="els_ui_takeLoanTotalAmount" text="Repayment amount with interest"/>
         <text name="els_ui_takeLoanButton" text="Take loan"/>
-        <text name="els_ui_togglePayedLoansButton" text="Toggle paid-off loans"/>
+        <text name="els_ui_togglePayedLoansButton" text="Toggle paid off loans"/>
 
         <text name="els_ui_specialRedemptionPaymentText" text="Please enter the amount you want to repay."/>
         <text name="els_ui_specialRedemptionPaymentRestAmount" text="Amount still to be paid"/>.
