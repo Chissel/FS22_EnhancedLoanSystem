@@ -19,6 +19,7 @@
         <text name="els_ui_header_restAmount" text="Restbetrag"/>
 
         <text name="els_ui_currentLoanSectionHeader" text="Laufende Kredite"/>
+        <text name="els_ui_totalLoanSectionHeader" text="Kredite Insgesamt"/>
         <text name="els_ui_paidOffLoanSectionHeader" text="Abbezahlte Kredite"/>
 
         <text name="els_ui_takeLoanText" text="Bitte gib den Betrag und die Laufzeit deines Kredites an."/>

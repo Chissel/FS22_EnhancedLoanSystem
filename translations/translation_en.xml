@@ -19,6 +19,7 @@
         <text name="els_ui_header_restAmount" text="Remaining Amount"/>
 
         <text name="els_ui_currentLoanSectionHeader" text="Current Loans"/>
+        <text name="els_ui_totalLoanSectionHeader" text="Total Loans"/>
         <text name="els_ui_paidOffLoanSectionHeader" text="Paid-Off Loans"/>
 
         <text name="els_ui_takeLoanText" text="Please specify the amount and term of your loan."/>

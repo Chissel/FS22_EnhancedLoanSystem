@@ -19,6 +19,7 @@
         <text name="els_ui_header_restAmount" text="Montante restante"/>
 
         <text name="els_ui_currentLoanSectionHeader" text="Empréstimos atuais"/>
+        <text name="els_ui_totalLoanSectionHeader" text="Total de empréstimos"/>
         <text name="els_ui_paidOffLoanSectionHeader" text="Empréstimos quitados"/>
 
         <text name="els_ui_takeLoanText" text="Por favor, especifique o valor e o prazo do seu empréstimo."/>

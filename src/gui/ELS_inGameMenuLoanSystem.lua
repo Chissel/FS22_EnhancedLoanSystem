@@ -98,12 +98,10 @@ function ELS_inGameMenuLoanSystem:onListSelectionChanged(list, section, index)
 
     if section == 1 then
         loan = self.currentLoans[index]
+    elseif section == 2 then
+        loan = nil
     else
         loan = self.paidOffLoans[index]
-    end
-
-    if loan == nil then
-        return
     end
 
     self.currentLoan = loan
@@ -203,12 +201,14 @@ end
 -- DataSource
 
 function ELS_inGameMenuLoanSystem:getNumberOfSections()
-	return 2
+	return 3
 end
 
 function ELS_inGameMenuLoanSystem:getNumberOfItemsInSection(list, section)
     if section == 1 then
         return #self.currentLoans
+    elseif section == 2 then
+        return 1
     else
         return #self.paidOffLoans
     end
@@ -217,6 +217,8 @@ end
 function ELS_inGameMenuLoanSystem:getTitleForSectionHeader(list, section)
 	if section == 1 then
         return self.i18n:getText("els_ui_currentLoanSectionHeader")
+    elseif section == 2 then
+        return self.i18n:getText("els_ui_totalLoanSectionHeader")
     else
         return self.i18n:getText("els_ui_paidOffLoanSectionHeader")
     end
@@ -227,6 +229,21 @@ function ELS_inGameMenuLoanSystem:populateCellForItemInSection(list, section, in
 
     if section == 1 then
         loan = self.currentLoans[index]
+    elseif section == 2 then
+        if #self.currentLoans == nil then
+            return
+        else
+            local totalAmount = 0
+            local totalPaidOff = 0
+            local totalAnnuity = 0
+            for _, loanValue in ipairs(self.currentLoans) do
+                totalAmount = totalAmount + loanValue.amount
+                totalPaidOff = totalPaidOff + loanValue.restAmount
+                totalAnnuity = totalAnnuity + loanValue:calculateAnnuity()
+            end
+            self:createTotalCell(cell, totalAmount, totalAnnuity, totalPaidOff)
+            return
+        end
     else
         loan = self.paidOffLoans[index]
     end
@@ -247,4 +264,13 @@ function ELS_inGameMenuLoanSystem:createCellWithLoan(cell, loan)
 	cell:getAttribute("duration"):setText(g_i18n:formatNumber(loan.duration * 12))
 	cell:getAttribute("restDuration"):setText(g_i18n:formatNumber(loan.restDuration))
 	cell:getAttribute("restAmount"):setText(g_i18n:formatMoney(loan.restAmount))	
+end
+
+function ELS_inGameMenuLoanSystem:createTotalCell(cell, totalAmount, totalAnnuity, totalPaidOff)
+    cell:getAttribute("amount"):setText(g_i18n:formatMoney(totalAmount))
+	cell:getAttribute("interest"):setText("")
+	cell:getAttribute("periodRate"):setText(g_i18n:formatMoney(totalAnnuity))
+	cell:getAttribute("duration"):setText("")
+	cell:getAttribute("restDuration"):setText("")
+	cell:getAttribute("restAmount"):setText(g_i18n:formatMoney(totalPaidOff))	
 end

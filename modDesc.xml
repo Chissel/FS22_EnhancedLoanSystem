@@ -20,6 +20,7 @@ An annuity loan has an annuity, the monthly installment, and a loan interest rat
 
 Changelog 1.2.0.0:
 - Bugfix: Newly created farms in multiplayer no longer have standard credits
+- Feature: The total costs for all current loans are also displayed
 
 Changelog 1.1.1.0:
 - Bugfix: Changes to the credit are correctly displayed in the statistics
@@ -41,6 +42,7 @@ Ein Annuitätendarlehn besitzt eine Annuität, die monatliche Rate, und einem Kr
 
 Changelog 1.2.0.0:
 - Bugfix: Neu erstellte Höfe im Multiplayer haben keine Standardkredite mehr
+- Feature: Es werden die Gesamtkosten für alle laufenden Kredite mit angezeigt
 
 Changelog 1.1.1.0:
 - Bugfix: Änderungen am Kredit werden korrekt in der Statistik angezeigt
