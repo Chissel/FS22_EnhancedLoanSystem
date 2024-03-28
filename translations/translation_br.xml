@@ -29,6 +29,7 @@
         <text name="els_ui_takeLoanPeriodRate" text="Pagamento mensal"/>
         <text name="els_ui_takeLoanTotalAmount" text="Valor do pagamento com juros"/>
         <text name="els_ui_takeLoanButton" text="Pegar empréstimo"/>
+        <text name="els_ui_togglePayedLoansButton" text="Empréstimos reembolsados por alternância"/>
 
         <text name="els_ui_specialRedemptionPaymentText" text="Por favor, insira a quantia que você deseja pagar."/>
         <text name="els_ui_specialRedemptionPaymentRestAmount" text="Valor ainda a ser pago"/>.

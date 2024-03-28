@@ -24,6 +24,7 @@ function ELS_inGameMenuLoanSystem.new(i18n, messageCenter)
 	self.hasCustomMenuButtons = true
     self.messageCenter = messageCenter
     self.i18n = i18n
+    self.showPayedLoans = false
 
 	return self
 end
@@ -49,10 +50,19 @@ function ELS_inGameMenuLoanSystem:initialize()
 		end
 	}
 
+    self.togglePayedLoansButton = {
+		inputAction = InputAction.MENU_EXTRA_2,
+		text = self.i18n:getText("els_ui_togglePayedLoansButton"),
+		callback = function ()
+			self:onTogglePayedLoansButton()
+		end
+	}
+
     local info = {
 		self.backButtonInfo,
         self.takeLoanButton,
-        self.specialRedemptionPayment
+        self.specialRedemptionPayment,
+        self.togglePayedLoansButton
 	}
 
     self.menuButtons = info
@@ -147,6 +157,11 @@ function ELS_inGameMenuLoanSystem:onTakeLoanButton()
     self:showTakeLoanDialog({callback=self.takeLoanCallback, target=self, maxLoanAmount=g_els_loanManager:maxLoanAmountForFarm(farm.farmId), loanInterest=g_els_loanManager.loanManagerProperties.loanInterest, maxLoanDuration=g_els_loanManager.loanManagerProperties.maxLoanDuration})
 end
 
+function ELS_inGameMenuLoanSystem:onTogglePayedLoansButton()
+    self.showPayedLoans = not self.showPayedLoans
+    self:updateContent()
+end
+
 function ELS_inGameMenuLoanSystem:showTakeLoanDialog(args)
     local dialog = g_gui.guis.ELS_takeLoanDialog
 
@@ -201,7 +216,11 @@ end
 -- DataSource
 
 function ELS_inGameMenuLoanSystem:getNumberOfSections()
-	return 3
+    if self.showPayedLoans then
+        return 3
+    else
+	    return 2
+    end 
 end
 
 function ELS_inGameMenuLoanSystem:getNumberOfItemsInSection(list, section)
