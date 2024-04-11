@@ -84,26 +84,23 @@ end
 
 function ELS_takeLoanDialog:onTextChanged(element, text)
     if text ~= "" then
-        if tonumber(text) ~= nil then
+        if text ~= element.lastValidText and tonumber(text) ~= nil then
             local value = text
             if element.id == "loanAmountInput" then
                 local currentValue = tonumber(value)
                 if currentValue > self.maxLoanAmount then
                     value = self.maxLoanAmount
-                    element:setText(tostring(value))
                 end
             elseif element.id == "loanDurationInput" then
                 local currentValue = tonumber(value)
                 if currentValue > self.maxLoanDuration then
                     value = self.maxLoanDuration
-                    element:setText(tostring(value))
                 end
             end
 
             local formattedValue = string.format("%.0f", value)
-            element:setText(formattedValue)
-
             element.lastValidText = formattedValue
+            element:setText(formattedValue)
         else
             element:setText(element.lastValidText)
         end
